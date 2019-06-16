@@ -1,0 +1,16 @@
+.logo {
+    background-image: url('./small-logo.png');
+    background-repeat: no-repeat;
+    width: 133px;
+    height: 28px;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border: none;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
