@@ -1,5 +1,6 @@
 .logo {
     background-image: url('./small-logo.png');
+    background-color: transparent;
     background-repeat: no-repeat;
     width: 133px;
     height: 28px;

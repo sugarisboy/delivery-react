@@ -4,11 +4,11 @@ import './style.css'
 export default class Logo extends React.Component {
     render() {
         return (
-            <button className="logo" onClick={this.redirectToHome}/>
+            <button className="logo" onClick={Logo.redirectToHome}/>
         )
     }
 
-    redirectToHome() {
+    static redirectToHome() {
         window.location.href = '/';
     }
 

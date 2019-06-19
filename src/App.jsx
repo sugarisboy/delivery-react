@@ -9,10 +9,12 @@ import './style.css'
 
 export default function App() {
     return (
-        <div className="wrapper">
-            <Header/>
-            <SearchBar/>
-            <ShopList/>
+        <div>
+            <div className="wrapper">
+                <Header/>
+                <SearchBar/>
+                <ShopList/>
+            </div>
             <Footer/>
         </div>
     )
