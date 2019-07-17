@@ -1,11 +1,11 @@
-import React from 'react';
-import './style.css';
+import React from 'react'
+import './style.css'
 
 export default class CartButton extends React.Component {
 
     constructor(props) {
-        super(props);
-        this.counter = props.counter || 10;
+        super(props)
+        this.counter = props.counter || 10
     }
 
 

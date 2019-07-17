@@ -1,10 +1,11 @@
 import React from 'react'
 import './style.css'
+import {Link} from "react-router-dom"
 
 export default class FooterNav extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             items: [
@@ -37,28 +38,29 @@ export default class FooterNav extends React.Component {
                     ]
                 },
             ]
-        };
-        console.log(this.state.items);
+        }
     }
 
     render() {
         return (
-            <nav class="footer-nav">
+            <nav className="footer-nav">
                 {
                     this.state.items.map(menuObject => {
-                        const header = Object.keys(menuObject)[0];
-                        const subItems = menuObject[header];
+                        const header = Object.keys(menuObject)[0]
+                        const subItems = menuObject[header]
 
                         return (
-                            <ul class="footer-nav__submenu">
-                                <li class="footer-nav__item footer-nav__item_head">
+                            <ul key={header} className="footer-nav__submenu">
+                                <li className="footer-nav__item footer-nav__item_head">
                                     {header}
                                 </li>
 
                                 {
-                                    subItems.map(si => (
-                                    <li class="footer-nav__item">
-                                        <a href="#" class="footer-nav__link">{si}</a>
+                                    subItems.map(subItem => (
+                                    <li key={subItem} className="footer-nav__item">
+                                        <Link to="#" className="footer-nav__link">
+                                            {subItem}
+                                        </Link>
                                     </li>
                                     ))
                                 }

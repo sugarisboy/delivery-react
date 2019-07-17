@@ -1,5 +1,6 @@
 import React from 'react'
-import './style.css'
+import './style.scss'
+import {Link} from 'react-router-dom'
 
 export default class Shop extends React.Component {
 
@@ -12,7 +13,7 @@ export default class Shop extends React.Component {
 
     render() {
         return (
-            <div className="shop">
+            <Link to={`/shop/${this.info.id}`} className="shop">
                 <div className="shop__logo"/>
                 <div className="shop__info-block">
                     <div className="shop__name">
@@ -22,7 +23,7 @@ export default class Shop extends React.Component {
                         {this.info.description}
                     </div>
                 </div>
-            </div>
+            </Link>
         )
     }
 

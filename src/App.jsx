@@ -1,11 +1,13 @@
 import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import ShopList from './ShopList'
-import SearchBar from './SearchBar'
+import MainPage from './MainPage'
+import ShopPage from './ShopPage'
 import 'minireset.css/minireset.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './style.css'
+import {Route, Switch} from "react-router-dom"
+import SearchBar from "./SearchBar"
 
 export default function App() {
     return (
@@ -13,7 +15,10 @@ export default function App() {
             <div className="wrapper">
                 <Header/>
                 <SearchBar/>
-                <ShopList/>
+                <Switch>
+                    <Route exact path="/" component={MainPage}/>
+                    <Route path="/shop/:id" component={ShopPage}/>
+                </Switch>
             </div>
             <Footer/>
         </div>

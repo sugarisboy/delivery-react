@@ -1,10 +1,11 @@
-import React from 'react';
-import './style.css';
+import React from 'react'
+import './style.css'
+import {Link} from "react-router-dom"
 
 export default class Navigation extends React.Component {
 
     componentWillMount() {
-        this.items = ['Delivery', 'About us'];
+        this.items = ['Delivery', 'About us']
     }
 
     render() {
@@ -13,9 +14,9 @@ export default class Navigation extends React.Component {
                 {
                     this.items.map((item, index) => (
                         <li className="navigation__item" key={index}>
-                            <a href="#" className="navigation__link">
+                            <Link to="#" className="navigation__link">
                                 {item}
-                            </a>
+                            </Link>
                         </li>
                     ))
                 }

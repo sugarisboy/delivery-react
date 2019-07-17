@@ -1,15 +1,13 @@
-import React from 'react';
+import React from 'react'
 import './style.css'
+import {Link} from "react-router-dom"
 
 export default class Logo extends React.Component {
+
     render() {
         return (
-            <button className="logo" onClick={Logo.redirectToHome}/>
+            <Link to="/" className="logo"/>
         )
-    }
-
-    static redirectToHome() {
-        window.location.href = '/';
     }
 
 }
