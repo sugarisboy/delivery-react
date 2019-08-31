@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import {get} from '../../api'
 import Shop from '../Shop'
 import './style.css'
 
@@ -14,9 +14,9 @@ export default class ShopList extends React.Component {
     }
 
     async componentDidMount() {
-        let response = await axios.get('http://localhost:8080/shop/')
+        let response = await get('/shop/page?page=0')
         if (response.hasOwnProperty('data')) {
-            this.setState({shops: response.data})
+            this.setState({shops: response.data.shops})
         }
     }
 
