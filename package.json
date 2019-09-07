@@ -1,5 +1,5 @@
 {
-  "name": "myreactapp",
+  "name": "qwik",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -33,7 +33,12 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
     "node-sass": "^4.12.0",
+    "prettier": "^1.18.2",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4"
   }
