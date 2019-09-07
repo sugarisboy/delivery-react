@@ -1,5 +1,5 @@
 import React from 'react'
-import {get} from '../../api'
+import {get} from '../../utils/api'
 import Shop from '../Shop'
 import './style.css'
 

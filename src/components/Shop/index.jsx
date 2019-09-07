@@ -6,9 +6,7 @@ export default class Shop extends React.Component {
 
     constructor(props) {
         super(props)
-
         this.info = props.hasOwnProperty('info') && props.info
-        console.log(this.info)
     }
 
     render() {
