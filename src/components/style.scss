@@ -1,14 +1,16 @@
-body {;
+body {
     font-family: 'Open Sans', sans-serif;
 }
 
 .wrapper {
     width: 1250px;
     margin: 0 auto;
-}
 
-@media screen and (max-width: 1250px) {
-    .wrapper {
+    @media screen and (max-width: 1250px) {
         width: 100%;
     }
+}
+
+.hidden {
+    display: none !important;
 }

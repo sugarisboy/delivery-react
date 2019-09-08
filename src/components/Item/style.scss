@@ -3,7 +3,7 @@
 
   width: 350px;
   height: 220px;
-  margin: 50px 60px;
+  margin: 30px 30px;
 
   background: #fff;
 
@@ -63,6 +63,8 @@
     color: #699ce4;
     font-size: 32px;
     line-height: 0;
+
+    user-select: none;
   }
 
 }
