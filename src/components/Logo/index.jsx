@@ -1,8 +1,8 @@
 import React from 'react'
 import './style.css'
-import {Link} from "react-router-dom"
+import {Link} from 'react-router-dom'
 
-export default class Logo extends React.Component {
+export default class Logo extends React.PureComponent {
 
     render() {
         return (

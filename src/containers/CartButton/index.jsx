@@ -9,7 +9,6 @@ class CartButton extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <button className="header-cart">
                 <div className="header-cart__counter" onClick={() => this.onClick()}>

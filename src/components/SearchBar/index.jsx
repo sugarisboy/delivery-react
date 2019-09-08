@@ -1,8 +1,8 @@
 import React from 'react'
-import Search from '../Search'
+import Search from '../../containers/Search'
 import './style.css'
 
-export default class SearchBar extends React.Component {
+export default class SearchBar extends React.PureComponent {
 
     render() {
         return (

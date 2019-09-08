@@ -1,18 +1,18 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 import { connect } from 'react-redux'
-import Header from './Header'
-import Footer from './Footer'
-import MainPage from './MainPage'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import MainPage from '../components/MainPage'
 import ShopPage from './ShopPage'
-import SearchBar from "./SearchBar"
+import SearchBar from "../components/SearchBar"
 import LoginPopup from './LoginPopup'
 import Shade from './Shade'
 import 'minireset.css/minireset.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './style.scss'
 
-class App extends React.PureComponent {
+class App extends React.Component {
 
     componentDidMount() {
         document.addEventListener('keyup', (e) => {

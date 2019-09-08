@@ -3,7 +3,7 @@ import Logo from '../Logo'
 import FooterNav from '../FooterNav'
 import './style.css'
 
-export default class Footer extends React.Component {
+export default class Footer extends React.PureComponent {
 
     render() {
         return (
