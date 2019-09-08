@@ -1,0 +1,15 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  width: 372px;
+  height: 502px;
+  background: #fff;
+  border-radius: 10px;
+  margin: auto;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

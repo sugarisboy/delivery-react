@@ -1,11 +1,39 @@
 import React from 'react'
 import './style.css'
 import {Link} from "react-router-dom"
+import {connect} from "react-redux";
+import {store} from "../../store";
 
-export default class Navigation extends React.Component {
+class Navigation extends React.Component {
+
+    constructor(props) {
+        super(props)
+    }
 
     componentWillMount() {
-        this.items = ['Delivery', 'About us']
+        this.items = [
+            {
+                name: 'Delivery',
+                link: '#'
+            },
+            {
+                name: 'About us',
+                link: '#'
+            },
+            {
+                name: 'Login',
+                onClick: this.onLoginClick
+            }
+        ]
+    }
+
+    onLoginClick() {
+        store.dispatch({
+            type: 'OPEN_USER_LOGIN',
+            payload: {
+                isOpen: true
+            }
+        })
     }
 
     render() {
@@ -14,8 +42,10 @@ export default class Navigation extends React.Component {
                 {
                     this.items.map((item, index) => (
                         <li className="navigation__item" key={index}>
-                            <Link to="#" className="navigation__link">
-                                {item}
+                            <Link to={item.link || '#'}
+                                  onClick={() => item.onClick && item.onClick()}
+                                  className="navigation__link">
+                                {item.name}
                             </Link>
                         </li>
                     ))
@@ -24,3 +54,11 @@ export default class Navigation extends React.Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        ...state
+    }
+}
+
+export default connect(mapStateToProps)(Navigation)

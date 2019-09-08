@@ -1,5 +1,6 @@
 import React from 'react'
-import {Route, Switch} from "react-router-dom"
+import {Route, Switch} from 'react-router-dom'
+import { connect } from 'react-redux'
 import Header from './Header'
 import Footer from './Footer'
 import MainPage from './MainPage'
@@ -10,7 +11,6 @@ import Shade from './Shade'
 import 'minireset.css/minireset.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './style.scss'
-import { connect } from 'react-redux'
 
 class App extends React.PureComponent {
 
