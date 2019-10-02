@@ -8,24 +8,55 @@ class Navigation extends React.Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            items: [
+                {
+                    name: 'Delivery',
+                    link: '#'
+                },
+                {
+                    name: 'About us',
+                    link: '#'
+                },
+                {
+                    name: 'Login',
+                    onClick: this.onLoginClick
+                }
+            ]
+        }
     }
 
-    componentWillMount() {
-        this.items = [
-            {
-                name: 'Delivery',
-                link: '#'
-            },
-            {
-                name: 'About us',
-                link: '#'
-            },
-            {
-                name: 'Login',
-                onClick: this.onLoginClick
+    componentDidUpdate(prevProps) {
+        const {isLoggedIn} = this.props
+
+        if (isLoggedIn !== prevProps.isLoggedIn) {
+            if (isLoggedIn) {
+                this.deleteItem('Login')
+            } else {
+                this.addItem({
+                    // name:
+                })
             }
-        ]
+        }
     }
+
+    addItem(item) {
+        this.setState((state) => ({
+            items: state.items.slice().push(item)
+        }))
+    }
+
+    deleteItem(name) {
+        const itemIndex = this.state.items
+            .findIndex(item => item.name === name)
+
+        const newItems = this.state.items.slice(itemIndex, 1)
+        this.setState({
+            items: newItems
+        })
+    }
+
 
     onLoginClick() {
         this.props.openLoginPopup()
@@ -34,7 +65,7 @@ class Navigation extends React.Component {
     render() {
         return (
             <ul className="navigation">
-                {this.items.map((item, index) => (
+                {this.state.items.map((item, index) => (
                     <li className="navigation__item" key={index}>
                         <Link to={item.link || '#123'}
                               onClick={item.onClick && item.onClick.bind(this)}
@@ -48,8 +79,12 @@ class Navigation extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    isLoggedIn: state.auth.isLoggedIn
+})
+
 const mapDispatchToProps = dispatch => ({
     openLoginPopup: () => dispatch(openLoginPopup())
 })
 
-export default connect(null, mapDispatchToProps)(Navigation)
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

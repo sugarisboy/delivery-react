@@ -1,17 +1,15 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
-import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import MainPage from '../components/MainPage'
 import ShopPage from './ShopPage'
-import SearchBar from "../components/SearchBar"
+import SearchBar from '../components/SearchBar'
 import LoginPopup from './LoginPopup'
 import Shade from './Shade'
 import 'minireset.css/minireset.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './style.scss'
-import { setShade } from '../actions/application'
 
 class App extends React.Component {
 

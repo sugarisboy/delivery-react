@@ -1,4 +1,6 @@
-import { LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT } from '../actions-types'
+import {
+    LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT, SET_USERNAME, SHADE
+} from '../actions-types'
 import moment from 'moment'
 import { post } from '../service/api'
 
@@ -6,6 +8,10 @@ export function successLogin() {
     return dispatch => {
         dispatch({
             type: LOGIN_SUCCESS
+        })
+        dispatch({
+            type: SHADE,
+            payload: false
         })
     }
 }
@@ -25,17 +31,27 @@ export function login(username, password) {
             const response = await post('/auth/login',
                 {username, password})
 
-            const {access, key} = response.data
+            const {access, key, username} = response.data
             if (access && key) {
                 localStorage.setItem('token', access)
                 localStorage.setItem('key', key)
                 successLogin()(dispatch)
+                setUsername(username)(dispatch)
             } else {
                 failLogin('Unknown Error')(dispatch)
             }
         } catch (e) {
             failLogin(e.response)(dispatch)
         }
+    }
+}
+
+export function setUsername(username) {
+    return dispatch => {
+        dispatch({
+            type: SET_USERNAME,
+            payload: username
+        })
     }
 }
 

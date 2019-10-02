@@ -1,7 +1,8 @@
-import React from "react";
-import {Link} from "react-router-dom";
-import {connect} from "react-redux";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import './style.scss'
+import { login } from '../../actions/auth'
 
 class LoginPopup extends React.Component {
 
@@ -12,8 +13,9 @@ class LoginPopup extends React.Component {
     }
 
     onSubmit = e => {
+        const {email, password} = this.data
         e.preventDefault()
-
+        this.props.login(email, password)
     }
 
     handleChange = e => {
@@ -58,4 +60,8 @@ class LoginPopup extends React.Component {
 
 }
 
-export default connect()(LoginPopup)
+const mapDispatchToProps = dispatch => ({
+    login: (username, password) => dispatch(login(username, password))
+})
+
+export default connect(null, mapDispatchToProps)(LoginPopup)
