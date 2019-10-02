@@ -11,9 +11,13 @@ class CartButton extends React.Component {
     render() {
         return (
             <button className="header-cart">
-                <div className="header-cart__counter" onClick={() => this.onClick()}>
-                    {this.props.cart.totalCount}
-                </div>
+                {this.props.cart.totalCount && (
+                    <div className="header-cart__counter"
+                         onClick={() => this.onClick()}>
+
+                        {this.props.cart.totalCount}
+                    </div>
+                )}
             </button>
         )
     }

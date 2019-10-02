@@ -1,9 +1,7 @@
 import React from 'react'
 import './style.scss'
 import { connect } from 'react-redux'
-import {
-    addItem, decreaseCart, increaseCart, removeItem
-} from '../../actions/cart'
+import { addItem, removeItem } from '../../actions/cart'
 
 class Item extends React.Component {
 
@@ -13,14 +11,12 @@ class Item extends React.Component {
         this.info = props.hasOwnProperty('info') && props.info
     }
 
-    addItem() {
-        this.props.dispatch(addItem(this.info.id, 1))
-        this.props.dispatch(increaseCart(1))
+    addItem(id) {
+        this.props.addItem(id)
     }
 
-    removeItem() {
-        this.props.dispatch(removeItem(1, 1))
-        this.props.dispatch(decreaseCart(1))
+    removeItem(id) {
+        this.props.removeItem(id)
     }
 
     render() {
@@ -36,11 +32,11 @@ class Item extends React.Component {
                     </div>
                     <div className="item-actions">
                         <button className="item-actions__button increase-item"
-                                onClick={() => this.addItem()}>
+                                onClick={() => this.addItem(this.info.id)}>
                             +
                         </button>
                         <button className="item-actions__button decrease-item"
-                                onClick={() => this.removeItem()}>
+                                onClick={() => this.removeItem(this.info.id)}>
                             -
                         </button>
                     </div>
@@ -51,10 +47,8 @@ class Item extends React.Component {
 
 }
 
-function mapStateToProps(state) {
-    return {
-        ...state
-    }
+const mapDispatchToProps = {
+    addItem, removeItem
 }
 
-export default connect(mapStateToProps)(Item)
+export default connect(null, mapDispatchToProps)(Item)

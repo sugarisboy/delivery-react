@@ -1,4 +1,4 @@
-import { ADD_ITEM, DEC_CART, INC_CART, REMOVE_ITEM } from '../actions'
+import { ADD_ITEM, DEC_CART, INC_CART, REMOVE_ITEM } from '../actions-types'
 
 const initialState = {
   items: {},
@@ -35,9 +35,7 @@ export default (state = initialState, action) => {
         ...state,
         items: {
           ...state.items,
-          [action.payload.id]: {
-            count: newCount
-          }
+          [action.payload.id]: newCount === 0 ? undefined : { count: newCount }
         }
       }
     }

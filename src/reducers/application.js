@@ -1,15 +1,20 @@
-import { OPEN_USER_LOGIN } from '../actions'
+import { SHADE, USER_LOGIN_POPUP } from '../actions-types'
 
 const initialState = {
-    shade: false
+    isShaded: false
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case OPEN_USER_LOGIN:
+        case USER_LOGIN_POPUP:
             return {
                 ...state,
-                shade: true
+                userLoginPopup: action.payload
+            }
+        case SHADE:
+            return {
+                ...state,
+                isShaded: action.payload
             }
         default:
             return {...state}

@@ -1,8 +1,8 @@
 import React from 'react'
 import './style.css'
-import {Link} from "react-router-dom"
-import {connect} from "react-redux";
-import {store} from "../../store";
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { openLoginPopup } from '../../actions/application'
 
 class Navigation extends React.Component {
 
@@ -28,37 +28,28 @@ class Navigation extends React.Component {
     }
 
     onLoginClick() {
-        store.dispatch({
-            type: 'OPEN_USER_LOGIN',
-            payload: {
-                isOpen: true
-            }
-        })
+        this.props.openLoginPopup()
     }
 
     render() {
         return (
             <ul className="navigation">
-                {
-                    this.items.map((item, index) => (
-                        <li className="navigation__item" key={index}>
-                            <Link to={item.link || '#'}
-                                  onClick={() => item.onClick && item.onClick()}
-                                  className="navigation__link">
-                                {item.name}
-                            </Link>
-                        </li>
-                    ))
-                }
+                {this.items.map((item, index) => (
+                    <li className="navigation__item" key={index}>
+                        <Link to={item.link || '#123'}
+                              onClick={item.onClick && item.onClick.bind(this)}
+                              className="navigation__link">
+                            {item.name}
+                        </Link>
+                    </li>
+                ))}
             </ul>
         )
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        ...state
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    openLoginPopup: () => dispatch(openLoginPopup())
+})
 
-export default connect(mapStateToProps)(Navigation)
+export default connect(null, mapDispatchToProps)(Navigation)

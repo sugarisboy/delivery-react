@@ -11,16 +11,9 @@ import Shade from './Shade'
 import 'minireset.css/minireset.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './style.scss'
+import { setShade } from '../actions/application'
 
 class App extends React.Component {
-
-    componentDidMount() {
-        document.addEventListener('keyup', (e) => {
-            if (e.key === 'Escape') {
-
-            }
-        })
-    }
 
     render() {
         return (
@@ -42,10 +35,4 @@ class App extends React.Component {
     }
 }
 
-function mapStateToProps(store) {
-    return {
-        ...store
-    }
-}
-
-export default connect(mapStateToProps)(App)
+export default App
