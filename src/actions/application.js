@@ -1,4 +1,4 @@
-import { SHADE, USER_LOGIN_POPUP } from '../actions-types'
+import { LOGOUT, SHADE, USER_LOGIN_POPUP } from '../actions-types'
 
 export function setShade(isShaded) {
     return dispatch => {
