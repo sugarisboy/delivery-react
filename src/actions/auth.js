@@ -28,6 +28,7 @@ export function failLogin(error) {
 export function login(username, password) {
     return async dispatch => {
         try {
+            console.log(username, password)
             const response = await post('/auth/login',
                 {username, password})
 
@@ -35,13 +36,13 @@ export function login(username, password) {
             if (access && key) {
                 localStorage.setItem('token', access)
                 localStorage.setItem('key', key)
-                successLogin()(dispatch)
-                setUsername(username)(dispatch)
+                dispatch(successLogin())
+                dispatch(setUsername(username))
             } else {
-                failLogin('Unknown Error')(dispatch)
+                dispatch(failLogin('Unknown Error'))
             }
         } catch (e) {
-            failLogin(e.response)(dispatch)
+            dispatch(failLogin(e.response))
         }
     }
 }
@@ -75,7 +76,7 @@ export function checkAuth() {
         }
 
         function parseJwt(token) {
-            const base64Url = token.split('.')[1];
+            const base64Url = token.split('.')[1]
             const base64 = base64Url
                 .replace(/-/g, '+')
                 .replace(/_/g, '/')
@@ -86,10 +87,10 @@ export function checkAuth() {
                     .map(c => {
                         return '%'
                             + ('00' + c.charCodeAt(0).toString(16))
-                                .slice(-2);
-                    }).join(''));
+                                .slice(-2)
+                    }).join(''))
 
-            return JSON.parse(jsonPayload);
+            return JSON.parse(jsonPayload)
         }
     }
 }

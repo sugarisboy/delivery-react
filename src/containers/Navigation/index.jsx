@@ -1,5 +1,5 @@
 import React from 'react'
-import './style.css'
+import './style.scss'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { openLoginPopup } from '../../actions/application'
@@ -28,14 +28,15 @@ class Navigation extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const {isLoggedIn} = this.props
+        const {isLoggedIn, username} = this.props
 
         if (isLoggedIn !== prevProps.isLoggedIn) {
             if (isLoggedIn) {
                 this.deleteItem('Login')
             } else {
                 this.addItem({
-                    // name:
+                    name: username,
+                    link: '/profile'
                 })
             }
         }
@@ -80,7 +81,8 @@ class Navigation extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.auth.isLoggedIn
+    isLoggedIn: state.auth.isLoggedIn,
+    username: state.auth.username
 })
 
 const mapDispatchToProps = dispatch => ({

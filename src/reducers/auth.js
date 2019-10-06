@@ -2,7 +2,8 @@ import { LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT, SET_USERNAME } from '../actions-type
 
 const initialState = {
     isLoggedIn: false,
-    isShaded: false
+    isShaded: false,
+    username: ''
 }
 
 export default (state = initialState, action) => {

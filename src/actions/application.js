@@ -1,4 +1,4 @@
-import { LOGOUT, SHADE, USER_LOGIN_POPUP } from '../actions-types'
+import { SET_USERNAME, SHADE, USER_LOGIN_POPUP } from '../actions-types'
 
 export function setShade(isShaded) {
     return dispatch => {
@@ -25,6 +25,15 @@ export function closeLoginPopup() {
         dispatch({
             type: USER_LOGIN_POPUP,
             payload: false
+        })
+    }
+}
+
+export function setUsername(username) {
+    return dispatch => {
+        dispatch({
+            type: SET_USERNAME,
+            payload: username
         })
     }
 }
