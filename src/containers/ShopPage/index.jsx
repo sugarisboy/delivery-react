@@ -1,6 +1,6 @@
 import React from 'react'
 import ItemsList from '../ItemsList'
-import axios from 'axios'
+import { get } from '../../service/api'
 
 export default class ShopPage extends React.Component {
 
@@ -13,12 +13,12 @@ export default class ShopPage extends React.Component {
     }
 
     async componentDidMount() {
-        if (this.state.shopId) {
-            const response = await axios.get(`http://localhost:8080/product/shop/${this.state.shopId}`)
-            this.setState({
-                products: response.data
-            })
-        }
+        const response = await get('/product/page', {
+            shopId: this.state.shopId
+        })
+        this.setState({
+            products: response.data.products
+        })
     }
 
     render() {

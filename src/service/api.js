@@ -14,7 +14,7 @@ function getAuthHeaders() {
     }
 }
 
-export function post(endpoint, data, headers = {}) {
+export function post(endpoint, data = {}, headers = {}) {
     const config = {
         headers: {
             ...headers,
@@ -24,12 +24,13 @@ export function post(endpoint, data, headers = {}) {
     return axios.post(API_URL + endpoint, data, config)
 }
 
-export function get(endpoint, headers = {}) {
+export function get(endpoint, data = {}, headers = {}) {
     const config = {
         headers: {
             ...headers,
             ...getAuthHeaders()
-        }
+        },
+        data: data
     }
     return axios.get(API_URL + endpoint, config)
 }
