@@ -10,8 +10,23 @@ import Shade from './Shade'
 import 'minireset.css/minireset.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './style.scss'
+import { connect } from 'react-redux'
+import { setItems } from '../actions/cart'
 
 class App extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.loadCartFromLocalStorage()
+    }
+
+    loadCartFromLocalStorage() {
+        const cartItems = localStorage.getItem('cart')
+        if (cartItems && Object.keys(cartItems).length > 0) {
+            this.props.setItems(cartItems)
+        }
+    }
 
     render() {
         return (
@@ -33,4 +48,8 @@ class App extends React.Component {
     }
 }
 
-export default App
+const mapDispatchToProps = dispatch => ({
+    setItems: items => dispatch(setItems(items))
+})
+
+export default connect(null, mapDispatchToProps)(App)

@@ -9,13 +9,15 @@ class CartButton extends React.Component {
     }
 
     render() {
+        const { totalCount } = this.props.cart
+
         return (
             <button className="header-cart">
-                {this.props.cart.totalCount && (
+                {totalCount > 0 && (
                     <div className="header-cart__counter"
                          onClick={() => this.onClick()}>
 
-                        {this.props.cart.totalCount}
+                        {totalCount}
                     </div>
                 )}
             </button>
