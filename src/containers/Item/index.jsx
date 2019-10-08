@@ -10,12 +10,12 @@ class Item extends React.Component {
         this.info = props.info
     }
 
-    addItem(id) {
-        this.props.addItem(id)
+    addItem(shopId, id, count) {
+        this.props.addItem(shopId, id, count)
     }
 
-    removeItem(id) {
-        this.props.removeItem(id)
+    removeItem(shopId, id) {
+        this.props.removeItem(shopId, id)
     }
 
     render() {
@@ -35,11 +35,11 @@ class Item extends React.Component {
                     </div>
                     <div className="item-actions">
                         <button className="item-actions__button increase-item"
-                                onClick={() => this.addItem(id, shopId)}>
+                                onClick={() => this.addItem(shopId, id)}>
                             +
                         </button>
                         <button className="item-actions__button decrease-item"
-                                onClick={() => this.removeItem(id, shopId)}>
+                                onClick={() => this.removeItem(shopId, id)}>
                             -
                         </button>
                     </div>

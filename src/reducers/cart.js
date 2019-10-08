@@ -1,51 +1,49 @@
 import { ADD_ITEM, REMOVE_ITEM, SET_ITEMS } from '../actions-types'
 
 const initialState = {
-  items: {},
-  totalCount: 0
+  shops: {}
+}
+
+function fillCartEntries(shops, shopId, id) {
+  if (!shops.hasOwnProperty(shopId)) {
+    shops[shopId] = {}
+  }
+  if (!shops[shopId].hasOwnProperty(id)) {
+    shops[shopId][id] = {}
+  }
+  if (!shops[shopId][id].hasOwnProperty('count')) {
+    shops[shopId][id].count = 0
+  }
 }
 
 export default (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_ITEM: {
-      const id = action.payload.id
-      const item = state.items[id]
-      const newTotal = state.totalCount + action.payload
-      const newCount = state.items[id]
-      && state.items[id].hasOwnProperty('count')
-          ? item.count + 1
-          : 1
+  const {type, payload} = action
 
+  switch (type) {
+    case ADD_ITEM: {
+      const {shopId, id, count} = payload
+      const {shops} = state
+      console.log(shopId)
+
+      fillCartEntries(shops, shopId, id)
+
+      shops[shopId][id].count += count
       return {
         ...state,
-        items: {
-          ...state.items,
-          [action.payload.id]: {
-            count: newCount
-          }
-        },
-        totalCount: newTotal
+        shops: shops
       }
     }
     case REMOVE_ITEM: {
-      const id = action.payload.id
-      const count = action.payload.count
+      const {shopId, id, count} = payload
+      const {shops} = state
+      console.log(shopId)
 
-      const item = state.items[id]
-      const newTotal = state.totalCount - count
+      fillCartEntries(shops, shopId, id)
 
-      const newCount = Math.max(state.totalCount - action.payload.count, 0)
-        && state.items[id].hasOwnProperty('count')
-          ? Math.max(item.count - 1, 0)
-          : 0
-
+      shops[shopId][id].count = Math.max(shops[shopId][id].count - count, 0)
       return {
         ...state,
-        items: {
-          ...state.items,
-          [id]: newCount === 0 ? undefined : { count: newCount }
-        },
-        totalCount: newTotal
+        shops: shops
       }
     }
     case SET_ITEMS: {

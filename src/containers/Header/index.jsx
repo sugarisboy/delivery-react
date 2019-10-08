@@ -8,8 +8,6 @@ import { connect } from 'react-redux'
 class Header extends React.Component {
 
     render() {
-        console.log(this.props.openedShopId)
-
         return (
             <header className="header">
                 <Logo/>

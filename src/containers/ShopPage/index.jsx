@@ -22,12 +22,10 @@ class ShopPage extends React.Component {
         this.setState({
             products: response.data.products
         })
-        console.log('mount')
         this.props.openShop(shopId)
     }
 
     componentWillUnmount() {
-        console.log('unmount')
         this.props.closeShop()
     }
 
