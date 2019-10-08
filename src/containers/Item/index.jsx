@@ -7,8 +7,7 @@ class Item extends React.Component {
 
     constructor(props) {
         super(props)
-
-        this.info = props.hasOwnProperty('info') && props.info
+        this.info = props.info
     }
 
     addItem(id) {
@@ -20,23 +19,27 @@ class Item extends React.Component {
     }
 
     render() {
+        const {
+            title, price, id, shopId
+        } = this.info
+
         return (
             <div className="item">
                 <div className="item__image"/>
                 <div className="item__info-block">
                     <div className="item__title">
-                        {this.info.title}
+                        {title}
                     </div>
                     <div className="item__cost">
-                        ${this.info.price}
+                        ${price}
                     </div>
                     <div className="item-actions">
                         <button className="item-actions__button increase-item"
-                                onClick={() => this.addItem(this.info.id)}>
+                                onClick={() => this.addItem(id, shopId)}>
                             +
                         </button>
                         <button className="item-actions__button decrease-item"
-                                onClick={() => this.removeItem(this.info.id)}>
+                                onClick={() => this.removeItem(id, shopId)}>
                             -
                         </button>
                     </div>

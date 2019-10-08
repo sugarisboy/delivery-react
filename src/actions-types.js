@@ -10,5 +10,6 @@ export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const LOGOUT = 'LOGOUT'
 
 export const SET_USERNAME = 'SET_USERNAME'
-export const SELECT_SHOP = 'SELECT_SHOP'
+export const OPEN_SHOP = 'OPEN_SHOP'
+export const CLOSE_SHOP = 'CLOSE_SHOP'
 export const SET_ITEMS = 'SET_ITEMS'

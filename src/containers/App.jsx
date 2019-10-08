@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Header from '../components/Header'
+import Header from '../containers/Header'
 import Footer from '../components/Footer'
 import MainPage from '../components/MainPage'
 import ShopPage from './ShopPage'

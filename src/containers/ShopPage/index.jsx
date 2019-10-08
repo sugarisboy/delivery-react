@@ -1,24 +1,34 @@
 import React from 'react'
 import ItemsList from '../ItemsList'
 import { get } from '../../service/api'
+import { connect } from 'react-redux'
+import { closeShop, openShop } from '../../actions/shop'
 
-export default class ShopPage extends React.Component {
+class ShopPage extends React.Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            shopId: props.match && props.match.params.id
+            shopId: props.match && +props.match.params.id
         }
     }
 
     async componentDidMount() {
+        const {shopId} = this.state
         const response = await get('/product/page', {
-            shopId: this.state.shopId
+            shopId: shopId
         })
         this.setState({
             products: response.data.products
         })
+        console.log('mount')
+        this.props.openShop(shopId)
+    }
+
+    componentWillUnmount() {
+        console.log('unmount')
+        this.props.closeShop()
     }
 
     render() {
@@ -28,3 +38,10 @@ export default class ShopPage extends React.Component {
     }
 
 }
+
+const mapDispatchToProps = dispatch => ({
+    openShop: shopId => dispatch(openShop(shopId)),
+    closeShop: () => dispatch(closeShop())
+})
+
+export default connect(null, mapDispatchToProps)(ShopPage)
