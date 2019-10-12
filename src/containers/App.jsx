@@ -12,6 +12,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import './style.scss'
 import { connect } from 'react-redux'
 import { setItems } from '../actions/cart'
+import CheckoutPage from './CheckoutPage'
 
 class App extends React.Component {
 
@@ -37,6 +38,7 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={MainPage}/>
                         <Route path="/shop/:id" component={ShopPage}/>
+                        <Route path="/checkout/:id" component={CheckoutPage}/>
                     </Switch>
                 </div>
                 <Shade>

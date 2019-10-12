@@ -1,18 +1,20 @@
 import { ADD_ITEM, REMOVE_ITEM, SET_ITEMS } from '../actions-types'
 
 const initialState = {
-  shops: {}
 }
 
-function fillCartEntries(shops, shopId, id) {
-  if (!shops.hasOwnProperty(shopId)) {
-    shops[shopId] = {}
+function fillCartEntries(cart, shopId, id) {
+  if (!cart.hasOwnProperty(shopId)) {
+    cart[shopId] = {}
   }
-  if (!shops[shopId].hasOwnProperty(id)) {
-    shops[shopId][id] = {}
+  if (!cart[shopId].hasOwnProperty('totalCount')) {
+    cart[shopId].totalCount = 0
   }
-  if (!shops[shopId][id].hasOwnProperty('count')) {
-    shops[shopId][id].count = 0
+  if (!cart[shopId].hasOwnProperty(id)) {
+    cart[shopId][id] = {}
+  }
+  if (!cart[shopId][id].hasOwnProperty('count')) {
+    cart[shopId][id].count = 0
   }
 }
 
@@ -22,34 +24,37 @@ export default (state = initialState, action) => {
   switch (type) {
     case ADD_ITEM: {
       const {shopId, id, count} = payload
-      const {shops} = state
-      console.log(shopId)
+      const cart = state
 
-      fillCartEntries(shops, shopId, id)
+      fillCartEntries(cart, shopId, id)
 
-      shops[shopId][id].count += count
+      cart[shopId][id].count += count
+      cart[shopId].totalCount += count
+
       return {
         ...state,
-        shops: shops
+        cart: cart
       }
     }
     case REMOVE_ITEM: {
       const {shopId, id, count} = payload
-      const {shops} = state
-      console.log(shopId)
+      const cart = state
 
-      fillCartEntries(shops, shopId, id)
+      fillCartEntries(cart, shopId, id)
 
-      shops[shopId][id].count = Math.max(shops[shopId][id].count - count, 0)
+      const newCount = Math.max(cart[shopId][id].count - count, 0)
+      cart[shopId][id].count = newCount
+      cart[shopId].totalCount = newCount
+
       return {
         ...state,
-        shops: shops
+        cart: cart
       }
     }
     case SET_ITEMS: {
       return {
         ...state,
-        items: action.payload
+        cart: action.payload
       }
     }
     default:

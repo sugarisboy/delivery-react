@@ -9,15 +9,16 @@ class CartButton extends React.Component {
     }
 
     render() {
-        const { totalCount } = this.props.cart
+        const {cart, shop} = this.props
+        const shopId  = shop.openedShopId
+        const itemsInShop = cart[shopId] && cart[shopId].totalCount || 0
 
         return (
             <button className="header-cart">
-                {totalCount > 0 && (
+                {itemsInShop > 0 && (
                     <div className="header-cart__counter"
                          onClick={() => this.onClick()}>
-
-                        {totalCount}
+                        {itemsInShop}
                     </div>
                 )}
             </button>
@@ -28,7 +29,8 @@ class CartButton extends React.Component {
 
 function mapStateToProps(store) {
     return {
-        cart: store.cart
+        cart: store.cart,
+        shop: store.shop
     }
 }
 
