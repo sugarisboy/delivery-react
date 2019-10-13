@@ -12,7 +12,7 @@ class Header extends React.Component {
             <header className="header">
                 <Logo/>
                 <Navigation/>
-                {this.props.openedShopId && <CartButton/>}
+                {this.props.openedShopId > 0 && <CartButton/>}
             </header>
         )
     }

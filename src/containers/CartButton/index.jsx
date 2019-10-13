@@ -11,7 +11,7 @@ class CartButton extends React.Component {
         const itemsInShop = (cart[shopId] && cart[shopId].totalCount) || 0
 
         return (
-            <React.Fragment>
+            <div>
                 <Link to={`/checkout/${shopId}`}>
                     <button className="header-cart">
                         {itemsInShop > 0 && (
@@ -22,7 +22,7 @@ class CartButton extends React.Component {
                         )}
                     </button>
                 </Link>
-            </React.Fragment>
+            </div>
         )
     }
 
