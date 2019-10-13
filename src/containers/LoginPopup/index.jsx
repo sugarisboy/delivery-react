@@ -34,23 +34,31 @@ class LoginPopup extends React.Component {
                     <form className="login__form"
                           onSubmit={this.onSubmit}
                     >
-                        <input type="text"
-                               name="email"
-                               placeholder="email"
-                               onChange={this.handleChange}
-                        />
+                        <label className="input">
+                            <span className="input__title">Email</span>
+                            <input type="text"
+                                   name="email"
+                                   className="input__area"
+                                   placeholder="Email"
+                                   onChange={this.handleChange}
+                            />
+                        </label>
 
-                        <input type="password"
-                               name="password"
-                               placeholder="password"
-                               onChange={this.handleChange}
-                        />
+                        <label className="input">
+                            <span className="input__title">Password</span>
+                            <input type="password"
+                                   name="password"
+                                   className="input__area"
+                                   placeholder="Password"
+                                   onChange={this.handleChange}
+                            />
+                        </label>
 
                         <label>
                             <input type="checkbox" name="keep-me-logged-in"/>
                             Keep me logged in?
                         </label>
-                        <button type="submit">Login</button>
+                        <button type="submit" className="button">Login</button>
                     </form>
                     <Link to="/forgot">Forgot you password?</Link>
                 </div>

@@ -1,7 +1,8 @@
 import { SHADE, USER_LOGIN_POPUP } from '../actions-types'
 
 const initialState = {
-    isShaded: false
+    isShaded: false,
+    userLoginPopup: false
 }
 
 export default (state = initialState, action) => {

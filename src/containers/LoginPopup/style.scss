@@ -7,6 +7,21 @@
   border-radius: 10px;
   margin: auto;
 
+  &__head {
+    background-image: url(bg.jpg);
+    background-repeat: no-repeat;
+
+    margin: 0;
+    padding: 40px 35px;
+
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;

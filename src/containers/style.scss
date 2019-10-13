@@ -14,3 +14,50 @@ body {
 .hidden {
     display: none !important;
 }
+
+.input {
+    display: flex;
+    position: relative;
+
+    width: 100%;
+    margin: 15px;
+
+    &__title {
+        position: absolute;
+        left: 15px;
+        top: -5px;
+
+        color: #7f7f7f;
+        font-size: 13px;
+        background: #fff;
+    }
+
+    &__area {
+        width: 100%;
+
+        border: 1px solid #7f7f7f;
+        border-radius: 20px;
+
+        padding: 20px;
+
+        color: #000;
+        font-size: 15px;
+    }
+}
+
+.button {
+    appearance: none;
+
+    width: 100%;
+    padding: 12px 0;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: #0c67e8;
+
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
