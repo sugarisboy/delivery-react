@@ -23,9 +23,14 @@ class App extends React.Component {
     }
 
     loadCartFromLocalStorage() {
-        const cartItems = localStorage.getItem('cart')
-        if (cartItems && Object.keys(cartItems).length > 0) {
-            this.props.setItems(cartItems)
+        const lsCart = localStorage.getItem('cart')
+        try {
+            const cartItems = JSON.parse(lsCart)
+            if (cartItems && Object.keys(cartItems).length > 0) {
+                this.props.setItems(cartItems)
+            }
+        } catch (e) {
+            localStorage.removeItem('cart')
         }
     }
 

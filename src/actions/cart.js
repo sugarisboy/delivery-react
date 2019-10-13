@@ -1,8 +1,9 @@
 import { ADD_ITEM, REMOVE_ITEM, SET_ITEMS } from '../actions-types'
+import { store } from '../store'
 
 export function addItem(shopId, id, count = 1) {
     return async dispatch => {
-        const data = await dispatch({
+        await dispatch({
             type: ADD_ITEM,
             payload: {
                 shopId,
@@ -10,13 +11,13 @@ export function addItem(shopId, id, count = 1) {
                 count
             }
         })
-        console.log(data)
+        localStorage.setItem('cart', JSON.stringify(store.getState().cart))
     }
 }
 
 export function removeItem(shopId, id, count = 1) {
     return async dispatch => {
-        dispatch({
+        await dispatch({
             type: REMOVE_ITEM,
             payload: {
                 shopId,
@@ -24,6 +25,7 @@ export function removeItem(shopId, id, count = 1) {
                 count
             }
         })
+        localStorage.setItem('cart', JSON.stringify(store.getState().cart))
     }
 }
 

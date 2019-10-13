@@ -32,8 +32,7 @@ export default (state = initialState, action) => {
       cart[shopId].totalCount += count
 
       return {
-        ...state,
-        cart: cart
+        ...cart
       }
     }
     case REMOVE_ITEM: {
@@ -47,14 +46,12 @@ export default (state = initialState, action) => {
       cart[shopId].totalCount = newCount
 
       return {
-        ...state,
-        cart: cart
+        ...cart,
       }
     }
     case SET_ITEMS: {
       return {
-        ...state,
-        cart: action.payload
+        ...action.payload,
       }
     }
     default:
