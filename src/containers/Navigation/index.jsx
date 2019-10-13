@@ -68,7 +68,7 @@ class Navigation extends React.Component {
             <ul className="navigation">
                 {this.state.items.map((item, index) => (
                     <li className="navigation__item" key={index}>
-                        <Link to={item.link || '#123'}
+                        <Link to={item.link || '#'}
                               onClick={item.onClick && item.onClick.bind(this)}
                               className="navigation__link">
                             {item.name}

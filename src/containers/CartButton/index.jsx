@@ -12,7 +12,7 @@ class CartButton extends React.Component {
 
         return (
             <div>
-                <Link to={`/checkout/${shopId}`}>
+                <Link to={itemsInShop > 0 ? `/checkout/${shopId}` : `#`}>
                     <button className="header-cart">
                         {itemsInShop > 0 && (
                             <div className="header-cart__counter"

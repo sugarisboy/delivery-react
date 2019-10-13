@@ -1,7 +1,7 @@
 import React from 'react'
 import Shop from '../Shop'
 import './style.css'
-import { get } from '../../service/api'
+import { post } from '../../service/api'
 
 export default class ShopList extends React.Component {
 
@@ -14,7 +14,7 @@ export default class ShopList extends React.Component {
     }
 
     async componentDidMount() {
-        let response = await get('/shop/page?page=0')
+        let response = await post('/shop/page?page=0&size=30')
         if (response.hasOwnProperty('data')) {
             this.setState({shops: response.data.shops})
         }

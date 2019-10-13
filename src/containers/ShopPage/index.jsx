@@ -1,6 +1,6 @@
 import React from 'react'
 import ItemsList from '../ItemsList'
-import { get } from '../../service/api'
+import { post } from '../../service/api'
 import { connect } from 'react-redux'
 import { closeShop, openShop } from '../../actions/shop'
 
@@ -16,8 +16,8 @@ class ShopPage extends React.Component {
 
     async componentDidMount() {
         const {shopId} = this.state
-        const response = await get('/product/page', {
-            shopId: shopId
+        const response = await post('/product/page?size=30', {
+            shopId
         })
         this.setState({
             products: response.data.products

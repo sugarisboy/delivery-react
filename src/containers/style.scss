@@ -19,7 +19,6 @@ body {
     display: flex;
     position: relative;
 
-    width: 100%;
     margin: 15px;
 
     &__title {
@@ -36,9 +35,9 @@ body {
         width: 100%;
 
         border: 1px solid #7f7f7f;
-        border-radius: 20px;
+        border-radius: 30px;
 
-        padding: 20px;
+        padding: 15px 20px;
 
         color: #000;
         font-size: 15px;
@@ -52,7 +51,7 @@ body {
     padding: 12px 0;
 
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
 
     background-color: #0c67e8;
 
