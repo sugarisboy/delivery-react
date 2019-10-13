@@ -1,7 +1,7 @@
 import React from 'react'
-import { get } from '../../utils/api'
 import Shop from '../Shop'
 import './style.css'
+import { get } from '../../service/api'
 
 export default class ShopList extends React.Component {
 
