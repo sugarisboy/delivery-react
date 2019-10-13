@@ -5,10 +5,6 @@ import { setShade } from '../../actions/application'
 
 class Shade extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
         document.addEventListener('keyup', e => {
             if (e.key === 'Escape') {
