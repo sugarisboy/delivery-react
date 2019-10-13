@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { get } from '../../service/api'
+import OrderForm from '../OrderForm'
 
 class CheckoutPage extends Component {
 
@@ -76,6 +77,7 @@ class CheckoutPage extends Component {
                             ))}
                         </div>
                         <h2>Total Price: ${totalPrice}</h2>
+                        <OrderForm/>
                     </Fragment>
                 )}
             </Fragment>
