@@ -54,9 +54,11 @@ class LoginPopup extends React.Component {
                             />
                         </label>
 
-                        <label>
-                            <input type="checkbox" name="keep-me-logged-in"/>
-                            Keep me logged in?
+                        <label className="keep">
+                            <input type="checkbox" name="keep-me-logged-in" className="keep__checkbox"/>
+                            <span className="keep__box"/>
+                            <span className="keep__check"/>
+                            <span className="keep__title">Keep me logged in?</span>
                         </label>
                         <button type="submit" className="button">Login</button>
                     </form>
