@@ -51,8 +51,6 @@ class CheckoutPage extends Component {
                 }
             }
 
-            console.log(checkoutItems)
-
             this.setState({ shop, checkoutItems, totalPrice })
         }
     }
@@ -61,26 +59,82 @@ class CheckoutPage extends Component {
         const { shop, checkoutItems, totalPrice } = this.state
 
         return (
-            <Fragment>
+            <>
                 {shop && (
-                    <Fragment>
-                        <h1>Checkout {shop.name}</h1>
-                        <div>
-                            {checkoutItems.map(item => (
-                                <div key={item.id}>
-                                    <span>ID {item.id}</span>,
-                                    <span>Title {item.title}</span>,
-                                    <span>Description {item.description}</span>,
-                                    <span>Price ${item.price}</span>,
-                                    <span>Count {item.count}</span>
-                                </div>
-                            ))}
+                    <div style={{
+                        margin: '50px 0',
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}>
+                        <div style={{
+                            flex: '1 0 auto'
+                        }}>
+                            <h1>
+                                Checkout {shop.name}
+                            </h1>
+                            <div>
+                                {checkoutItems.map(item => (
+                                    <div>
+                                        <div key={item.id} style={{
+                                            display: 'flex',
+                                            padding: '40px 20px'
+                                        }}>
+                                            <div>
+                                                <p style={{
+                                                    fontSize: 16,
+                                                    marginBottom: 7
+                                                }}>
+                                                    {item.title}
+                                                    <span style={{
+                                                        color: 'grey'
+                                                    }}>
+                                                        &nbsp;x {item.count}
+                                                    </span>
+                                                </p>
+                                                <small style={{
+                                                    color: 'grey'
+                                                }}>
+                                                    Description {item.description}
+                                                </small>
+                                            </div>
+                                            <div style={{
+                                                marginLeft: 'auto',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'flex-end'
+                                            }}>
+                                                <span style={{
+                                                    fontSize: 18,
+                                                    color: 'grey'
+                                                }}>
+                                                    ${item.price}
+                                                </span>
+                                                <span style={{
+                                                    fontSize: 24
+                                                }}>
+                                                    ${item.count * item.price}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                ))}
+                            </div>
+                            <h2 style={{
+                                textAlign: 'right',
+                                margin: '40px 20px'
+                            }}>
+                                TOTAL ${totalPrice}
+                            </h2>
                         </div>
-                        <h2>Total Price: ${totalPrice}</h2>
-                        <OrderForm/>
-                    </Fragment>
+                        <div style={{
+                            marginLeft: 'auto'
+                        }}>
+                            <OrderForm/>
+                        </div>
+                    </div>
                 )}
-            </Fragment>
+            </>
         )
 
     }
