@@ -15,8 +15,7 @@ class CartButton extends React.Component {
                 <Link to={itemsInShop > 0 ? `/checkout/${shopId}` : `#`}>
                     <button className="header-cart">
                         {itemsInShop > 0 && (
-                            <div className="header-cart__counter"
-                                 onClick={() => this.onClick()}>
+                            <div className="header-cart__counter">
                                 {itemsInShop}
                             </div>
                         )}

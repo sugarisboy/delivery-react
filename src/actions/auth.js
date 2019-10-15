@@ -28,16 +28,15 @@ export function failLogin(error) {
 export function login(username, password) {
     return async dispatch => {
         try {
-            console.log(username, password)
             const response = await post('/auth/login',
                 {username, password})
 
-            const {access, key, username} = response.data
+            const {access, key} = response.data
             if (access && key) {
                 localStorage.setItem('token', access)
                 localStorage.setItem('key', key)
                 dispatch(successLogin())
-                dispatch(setUsername(username))
+                dispatch(setUsername(response.data.username))
             } else {
                 dispatch(failLogin('Unknown Error'))
             }
