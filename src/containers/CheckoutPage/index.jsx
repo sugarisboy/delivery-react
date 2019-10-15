@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { get } from '../../service/api'
 import OrderForm from '../OrderForm'
+import { addItem, removeItem } from '../../actions/cart'
 
 class CheckoutPage extends Component {
 
@@ -13,50 +14,65 @@ class CheckoutPage extends Component {
             checkoutItems: [],
             totalPrice: 0
         }
+
+        this.button = {
+            appearance: 'none',
+            margin: '0 15px',
+            padding: 0,
+            width: 40,
+            height: 40,
+            borderRadius: 29,
+            border: 'none',
+            background: '#f6f6f6',
+            color: '#699ce4',
+            fontSize: 32,
+            userSelect: 'none'
+        }
     }
 
-    componentDidMount() {
-        this.forceUpdate()
-    }
-
-    async componentDidUpdate(prevProps) {
+    async updatePage() {
         const {match, cart} = this.props
+        const shopId = match.params.id
 
-        if (!match) {
+        const resp = await get(`/shop/${shopId}`)
+        const shop = resp.data
+        const shopCart = cart[shopId]
+
+        let totalPrice = 0
+        const checkoutItems = []
+        for (let item in shopCart) {
+            if (shopCart.hasOwnProperty(item) && shopCart[item].hasOwnProperty('count')) {
+                const resp = await get(`/product/${item}`)
+                const productData = resp.data
+                const count = shopCart[item].count
+
+                totalPrice += (productData.price * count)
+
+                checkoutItems.push({
+                    ...productData,
+                    count
+                })
+            }
+        }
+
+        this.setState({ shop, checkoutItems, totalPrice })
+    }
+
+    async componentDidMount() {
+        this.updatePage()
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if (prevState !== this.state) {
             return
         }
 
-        const shopId = match.params.id
-        const prevShopId = prevProps.match.params.id
-
-        if (shopId !== prevShopId || this.state.shop === null) {
-            const resp = await get(`/shop/${shopId}`)
-            const shop = resp.data
-            const shopCart = cart[shopId]
-
-            let totalPrice = 0
-            const checkoutItems = []
-            for (let item in shopCart) {
-                if (shopCart.hasOwnProperty(item) && shopCart[item].hasOwnProperty('count')) {
-                    const resp = await get(`/product/${item}`)
-                    const productData = resp.data
-                    const count = shopCart[item].count
-
-                    totalPrice += (productData.price * count)
-
-                    checkoutItems.push({
-                        ...productData,
-                        count
-                    })
-                }
-            }
-
-            this.setState({ shop, checkoutItems, totalPrice })
-        }
+        this.updatePage()
     }
 
     render() {
         const { shop, checkoutItems, totalPrice } = this.state
+        const { addItem, removeItem } = this.props
 
         return (
             <>
@@ -74,8 +90,8 @@ class CheckoutPage extends Component {
                             </h1>
                             <div>
                                 {checkoutItems.map(item => (
-                                    <div>
-                                        <div key={item.id} style={{
+                                    <div key={item.id}>
+                                        <div style={{
                                             display: 'flex',
                                             padding: '40px 20px'
                                         }}>
@@ -85,11 +101,6 @@ class CheckoutPage extends Component {
                                                     marginBottom: 7
                                                 }}>
                                                     {item.title}
-                                                    <span style={{
-                                                        color: 'grey'
-                                                    }}>
-                                                        &nbsp;x {item.count}
-                                                    </span>
                                                 </p>
                                                 <small style={{
                                                     color: 'grey'
@@ -100,20 +111,42 @@ class CheckoutPage extends Component {
                                             <div style={{
                                                 marginLeft: 'auto',
                                                 display: 'flex',
-                                                flexDirection: 'column',
-                                                alignItems: 'flex-end'
                                             }}>
-                                                <span style={{
-                                                    fontSize: 18,
-                                                    color: 'grey'
+                                                <div style={{
+                                                    margin: '0 50px',
+                                                    display: 'flex',
+                                                    alignItems: 'center'
                                                 }}>
-                                                    ${item.price}
-                                                </span>
-                                                <span style={{
-                                                    fontSize: 24
+                                                    <button style={this.button}
+                                                            onClick={() => removeItem(shop.id, item.id)}>
+                                                        -
+                                                    </button>
+                                                    <span style={{ fontSize: 18 }}>
+                                                        {item.count}
+                                                    </span>
+                                                    <button style={this.button}
+                                                            onClick={() => addItem(shop.id, item.id)}>
+                                                        +
+                                                    </button>
+                                                </div>
+                                                <div style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    alignItems: 'flex-end',
+                                                    width: 100
                                                 }}>
-                                                    ${item.count * item.price}
-                                                </span>
+                                                    <span style={{
+                                                        fontSize: 18,
+                                                        color: 'grey',
+                                                    }}>
+                                                        ${item.price}
+                                                    </span>
+                                                        <span style={{
+                                                            fontSize: 24,
+                                                        }}>
+                                                        ${item.count * item.price}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <hr/>
@@ -144,4 +177,6 @@ const mapStateToProps = state => ({
     cart: state.cart
 })
 
-export default connect(mapStateToProps)(CheckoutPage)
+const mapDispatchToProps = { addItem, removeItem }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage)

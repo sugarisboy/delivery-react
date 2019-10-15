@@ -42,8 +42,12 @@ export default (state = initialState, action) => {
       fillCartEntries(cart, shopId, id)
 
       const newCount = Math.max(cart[shopId][id].count - count, 0)
-      cart[shopId][id].count = newCount
-      cart[shopId].totalCount = newCount
+      if (newCount > 0) {
+        cart[shopId][id].count = newCount
+        cart[shopId].totalCount = newCount
+      } else {
+        cart[shopId][id] = undefined
+      }
 
       return {
         ...cart,
