@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   width: 372px;
-  height: 502px;
   background: #fff;
   border-radius: 15px;
   margin: auto;
@@ -28,6 +27,10 @@
     justify-content: center;
 
     padding: 20px;
+  }
+
+  &__error {
+    color: red;
   }
 
 }

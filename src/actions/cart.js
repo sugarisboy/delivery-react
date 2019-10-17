@@ -1,4 +1,4 @@
-import { ADD_ITEM, REMOVE_ITEM, SET_ITEMS } from '../actions-types'
+import { ADD_ITEM, REMOVE_ITEM, SET_ITEMS } from './actions-types'
 import { store } from '../store'
 
 export function addItem(shopId, id, count = 1) {

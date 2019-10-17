@@ -1,4 +1,4 @@
-import { SHADE, USER_LOGIN_POPUP } from '../actions-types'
+import { SHADE, USER_LOGIN_POPUP } from '../actions/actions-types'
 
 const initialState = {
     isShaded: false,

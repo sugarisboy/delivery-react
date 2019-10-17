@@ -1,4 +1,4 @@
-import { SET_USERNAME, SHADE, USER_LOGIN_POPUP } from '../actions-types'
+import { SET_USERNAME, SHADE, USER_LOGIN_POPUP } from './actions-types'
 
 export function setShade(isShaded) {
     return dispatch => {

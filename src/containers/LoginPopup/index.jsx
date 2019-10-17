@@ -34,6 +34,9 @@ class LoginPopup extends React.Component {
                     <form className="login__form"
                           onSubmit={this.onSubmit}
                     >
+                        <p className="login__error">
+                            {this.props.auth.loginError}
+                        </p>
                         <label className="input">
                             <span className="input__title">Email</span>
                             <input type="text"
@@ -60,9 +63,11 @@ class LoginPopup extends React.Component {
                             <span className="keep__check"/>
                             <span className="keep__title">Keep me logged in?</span>
                         </label>
+
                         <button type="submit" className="button">Login</button>
+
+                        <Link to="/forgot">Forgot you password?</Link>
                     </form>
-                    <Link to="/forgot">Forgot you password?</Link>
                 </div>
             </div>
         )
@@ -70,8 +75,12 @@ class LoginPopup extends React.Component {
 
 }
 
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
 const mapDispatchToProps = dispatch => ({
     login: (username, password) => dispatch(login(username, password))
 })
 
-export default connect(null, mapDispatchToProps)(LoginPopup)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPopup)

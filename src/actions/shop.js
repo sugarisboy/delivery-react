@@ -1,4 +1,4 @@
-import { CLOSE_SHOP, OPEN_SHOP } from '../actions-types'
+import { CLOSE_SHOP, OPEN_SHOP } from './actions-types'
 
 export function openShop(id) {
     return dispatch => {

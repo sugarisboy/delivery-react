@@ -1,8 +1,8 @@
-import {
-    LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT, SET_USERNAME, SHADE
-} from '../actions-types'
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, SET_USERNAME, SHADE } from './actions-types'
 import moment from 'moment'
 import { post } from '../service/api'
+
+let loginErrorTimeout
 
 export function successLogin() {
     return dispatch => {
@@ -19,9 +19,16 @@ export function successLogin() {
 export function failLogin(error) {
     return dispatch => {
         dispatch({
-            type: LOGIN_FAIL,
+            type: LOGIN_ERROR,
             payload: error
         })
+        clearTimeout(loginErrorTimeout)
+        loginErrorTimeout = setTimeout(() => {
+            dispatch({
+                type: LOGIN_ERROR,
+                loginError: null
+            })
+        }, 3000)
     }
 }
 
@@ -41,7 +48,7 @@ export function login(username, password) {
                 dispatch(failLogin('Unknown Error'))
             }
         } catch (e) {
-            dispatch(failLogin(e.response))
+            dispatch(failLogin(e.response.data.message))
         }
     }
 }

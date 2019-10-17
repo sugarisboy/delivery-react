@@ -1,23 +1,27 @@
-import { LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT, SET_USERNAME } from '../actions-types'
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, SET_USERNAME } from '../actions/actions-types'
 
 const initialState = {
     isLoggedIn: false,
     isShaded: false,
-    username: ''
+    username: '',
+    loginError: null
 }
 
 export default (state = initialState, action) => {
-    switch (action.type) {
+    const {type, payload} = action
+
+    switch (type) {
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 isLoggedIn: true
             }
-        case LOGIN_FAIL:
+        case LOGIN_ERROR: {
             return {
                 ...state,
-                isLoggedIn: false
+                loginError: payload
             }
+        }
         case LOGOUT:
             return {
                 ...state,
@@ -26,7 +30,7 @@ export default (state = initialState, action) => {
         case SET_USERNAME:
             return {
                 ...state,
-                username: action.payload
+                username: payload
             }
         default:
             return {...state}
