@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import './style.scss'
 import { login } from '../../actions/auth'
+import QwikInput from '../../components/QwikInput'
 
 class LoginPopup extends React.Component {
 
@@ -37,25 +38,9 @@ class LoginPopup extends React.Component {
                         <p className="login__error">
                             {this.props.auth.loginError}
                         </p>
-                        <label className="input">
-                            <span className="input__title">Email</span>
-                            <input type="text"
-                                   name="email"
-                                   className="input__area"
-                                   placeholder="Email"
-                                   onChange={this.handleChange}
-                            />
-                        </label>
 
-                        <label className="input">
-                            <span className="input__title">Password</span>
-                            <input type="password"
-                                   name="password"
-                                   className="input__area"
-                                   placeholder="Password"
-                                   onChange={this.handleChange}
-                            />
-                        </label>
+                        <QwikInput name="email" title="Email" type="email" onChange={this.handleChange}/>
+                        <QwikInput name="password" title="Password" type="password" onChange={this.handleChange}/>
 
                         <label className="keep">
                             <input type="checkbox" name="keep-me-logged-in" className="keep__checkbox"/>
@@ -79,8 +64,6 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-const mapDispatchToProps = dispatch => ({
-    login: (username, password) => dispatch(login(username, password))
-})
+const mapDispatchToProps = { login }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPopup)
