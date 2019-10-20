@@ -20,3 +20,9 @@ export default (state = initialState, action) => {
             return {...state}
     }
 }
+
+export function applyAddress() {
+    return dispatch => {
+        
+    }
+}

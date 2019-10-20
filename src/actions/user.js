@@ -6,5 +6,6 @@ export function setAddress(address) {
             type: SET_ADDRESS,
             payload: address
         })
+        localStorage.setItem('address', address)
     }
 }

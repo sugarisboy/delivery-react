@@ -15,6 +15,7 @@ import { setItems } from '../actions/cart'
 import { checkAuth } from '../actions/auth'
 import CheckoutPage from './CheckoutPage'
 import ProfilePage from './ProfilePage'
+import { applyAddress } from '../reducers/user'
 
 class App extends React.Component {
 
@@ -23,6 +24,7 @@ class App extends React.Component {
 
         this.loadCartFromLocalStorage()
         this.props.checkAuth()
+        this.props.applyAddress()
     }
 
     loadCartFromLocalStorage() {
@@ -60,7 +62,7 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = {
-    setItems, checkAuth
+    setItems, checkAuth, applyAddress
 }
 
 export default connect(null, mapDispatchToProps)(App)
