@@ -46,7 +46,7 @@ class CheckoutPage extends Component {
                 const productData = resp.data
                 const count = shopCart[item].count
 
-                totalPrice += (productData.price * count)
+                totalPrice = +(totalPrice + productData.price * count).toFixed(2)
 
                 checkoutItems.push({
                     ...productData,
@@ -144,7 +144,7 @@ class CheckoutPage extends Component {
                                                         <span style={{
                                                             fontSize: 24,
                                                         }}>
-                                                        ${item.count * item.price}
+                                                        ${(item.count * item.price)}
                                                     </span>
                                                 </div>
                                             </div>
