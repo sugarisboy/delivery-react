@@ -16,7 +16,6 @@ class Search extends React.Component {
     }
 
     async onChange(val) {
-        console.log(val)
         // const res = await get(`/map/ac/${value}`)
         // const {suggestions} = res.data
         //

@@ -3,6 +3,7 @@ import './style.scss'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addToMenu, openLoginPopup, removeFromMenu } from '../../actions/application'
+import { logout } from '../../actions/auth'
 
 class Navigation extends React.Component {
 
@@ -14,12 +15,14 @@ class Navigation extends React.Component {
     }
 
     callAction = action => {
-        console.log(action)
         if (!action) return
 
         switch (action) {
             case 'OPEN_LOGIN_POPUP':
                 this.props.openLoginPopup()
+                break
+            case 'LOGOUT':
+                this.props.logout()
                 break
         }
     }
@@ -48,7 +51,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    openLoginPopup, addToMenu, removeFromMenu
+    openLoginPopup, addToMenu, removeFromMenu, logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

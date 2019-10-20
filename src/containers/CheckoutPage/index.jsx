@@ -144,7 +144,7 @@ class CheckoutPage extends Component {
                                                         <span style={{
                                                             fontSize: 24,
                                                         }}>
-                                                        ${(item.count * item.price)}
+                                                        ${(item.count * item.price).toFixed(2)}
                                                     </span>
                                                 </div>
                                             </div>
