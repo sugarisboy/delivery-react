@@ -1,4 +1,16 @@
 {
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "prettier.eslintIntegration": true,
+  "javascript.format.enable": false,
+  "javascript.validate.enable": false,
+  "files.associations": {
+    "*.jsx": "javascriptreact",
+    "*.js": "javascriptreact"
+  },
+  "emmet.syntaxProfiles": {
+    "javascript": "jsx"
+  },
   "useTabs": false,
   "printWidth": 120,
   "tabWidth": 4,
