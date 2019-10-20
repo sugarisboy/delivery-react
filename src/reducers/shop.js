@@ -1,4 +1,4 @@
-import { CLOSE_SHOP, OPEN_SHOP } from '../actions-types'
+import { CLOSE_SHOP, OPEN_SHOP } from '../actions/actions-types'
 
 const initialState = {
     openedShopId: 0
