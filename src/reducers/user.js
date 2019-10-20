@@ -1,4 +1,4 @@
-import { SET_ADDRESS } from '../actions/actions-types'
+import { SET_ADDRESS, SET_USER_DATA } from '../actions/actions-types'
 
 const initialState = {
     address: null

@@ -1,4 +1,4 @@
-import { LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, SET_USERNAME, SHADE } from './actions-types'
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, SET_USER_DATA, SHADE } from './actions-types'
 import moment from 'moment'
 import { post } from '../service/api'
 import { addToMenu, removeFromMenu } from './application'
@@ -40,12 +40,16 @@ export function login(username, password) {
                 {username, password})
 
             const {access, key} = response.data
+            const tokenData = parseJwt(access)
+            const id = tokenData.id
+
             if (access && key) {
                 localStorage.setItem('token', access)
                 localStorage.setItem('key', key)
+
                 dispatch(successLogin())
-                dispatch(setUsername(username))
-                await dispatch(updateMenu(true, username))
+                dispatch(setUser({username, id}))
+                dispatch(updateMenu(true, username))
             } else {
                 dispatch(failLogin('Unknown Error'))
             }
@@ -65,7 +69,7 @@ function updateMenu(isLoggedIn, username) {
             }))
             await dispatch(addToMenu({
                 name: 'Logout',
-                link: '/logout'
+                action: 'LOGOUT'
             }))
         } else {
             await dispatch(addToMenu({
@@ -76,11 +80,11 @@ function updateMenu(isLoggedIn, username) {
     }
 }
 
-export function setUsername(username) {
+export function setUser(userData) {
     return dispatch => {
         dispatch({
-            type: SET_USERNAME,
-            payload: username
+            type: SET_USER_DATA,
+            payload: userData
         })
     }
 }
@@ -97,35 +101,36 @@ export function checkAuth() {
             const expDate = moment(tokenData.exp * 1000)
 
             const username = tokenData.sub
+            const id = tokenData.id
 
             if (expDate.isAfter(now)) {
                 dispatch(successLogin())
-                dispatch(setUsername(username))
-                await dispatch(updateMenu(true, username))
+                dispatch(setUser({username, id}))
+                dispatch(updateMenu(true, username))
             } else {
                 dispatch(failLogin())
                 localStorage.removeItem('token')
             }
         }
-
-        function parseJwt(token) {
-            const base64Url = token.split('.')[1]
-            const base64 = base64Url
-                .replace(/-/g, '+')
-                .replace(/_/g, '/')
-
-            const jsonPayload = decodeURIComponent(
-                atob(base64)
-                    .split('')
-                    .map(c => {
-                        return '%'
-                            + ('00' + c.charCodeAt(0).toString(16))
-                                .slice(-2)
-                    }).join(''))
-
-            return JSON.parse(jsonPayload)
-        }
     }
+}
+
+function parseJwt(token) {
+    const base64Url = token.split('.')[1]
+    const base64 = base64Url
+        .replace(/-/g, '+')
+        .replace(/_/g, '/')
+
+    const jsonPayload = decodeURIComponent(
+        atob(base64)
+            .split('')
+            .map(c => {
+                return '%'
+                    + ('00' + c.charCodeAt(0).toString(16))
+                        .slice(-2)
+            }).join(''))
+
+    return JSON.parse(jsonPayload)
 }
 
 export function logout() {
@@ -136,6 +141,6 @@ export function logout() {
         dispatch({
             type: LOGOUT
         })
-        setUsername(null)
+        setUser(null)
     }
 }

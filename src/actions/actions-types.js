@@ -11,7 +11,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const LOGOUT = 'LOGOUT'
 
-export const SET_USERNAME = 'SET_USERNAME'
+export const SET_USER_DATA = 'SET_USER_DATA'
 export const OPEN_SHOP = 'OPEN_SHOP'
 export const CLOSE_SHOP = 'CLOSE_SHOP'
 

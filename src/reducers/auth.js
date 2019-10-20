@@ -1,9 +1,12 @@
-import { LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, SET_USERNAME } from '../actions/actions-types'
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, SET_USER_DATA } from '../actions/actions-types'
 
 const initialState = {
     isLoggedIn: false,
     isShaded: false,
-    username: '',
+    userData: {
+        id: 0,
+        username: ''
+    },
     loginError: null
 }
 
@@ -27,10 +30,10 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoggedIn: false
             }
-        case SET_USERNAME:
+        case SET_USER_DATA:
             return {
                 ...state,
-                username: payload
+                userData: payload
             }
         default:
             return {...state}
