@@ -1,7 +1,10 @@
-import { SET_ADDRESS, SET_USER_DATA } from '../actions/actions-types'
+import { SET_ADDRESS } from '../actions/actions-types'
 
 const initialState = {
-    address: null
+    location: {
+        label: '',
+        address: {}
+    }
 }
 
 export default (state = initialState, action) => {
@@ -11,7 +14,7 @@ export default (state = initialState, action) => {
         case SET_ADDRESS:
             return {
                 ...state,
-                address: payload
+                location: payload
             }
         default:
             return {...state}

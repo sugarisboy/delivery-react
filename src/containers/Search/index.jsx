@@ -11,35 +11,65 @@ class Search extends React.Component {
         super(props)
 
         this.state = {
-            suggestions: []
+            currentValue: '',
+            label: '',
+            address: {}
         }
     }
 
-    async onChange(val) {
-        // const res = await get(`/map/ac/${value}`)
-        // const {suggestions} = res.data
-        //
-        // this.setState({
-        //     suggestions: suggestions.filter(s => (s.address.street && s.address.houseNumber))
-        // })
+    onChange = ({value}) => {
+        const {address, label} = value
+
+        if (label && value) {
+            this.setState({
+                label,
+                address
+            }, () => console.log('state', this.state))
+        }
     }
 
-    loadOptions = async(val) => {
+    onSearchClick = () => {
+        const {label, address} = this.state
+        if (!address || Object.keys(address).length === 0) {
+            alert('Please enter your address')
+            return
+        }
+
+        const { city, district, street, houseNumber } = address
+        console.log(address)
+        if (!city || !district || !street || !houseNumber) {
+            alert('Please select valid address')
+            return
+        }
+
+        this.props.setAddress({label, address})
+    }
+
+    loadOptions = async (val) => {
         const res = await get(`/map/ac/${val}`)
         const {suggestions} = res.data
-        const filtered = suggestions.filter(s => (s.address.street && s.address.houseNumber))
-        return suggestions.map(s => ({label: s.label}))
+        // const filtered = suggestions.filter(s => (s.address.street && s.address.houseNumber))
+        return suggestions.map(s => ({
+            label: s.label,
+            value: s
+        }))
     }
 
     render() {
+        const {address, label} = this.state
+        const currentValue = (label.length > 0 && Object.keys(address).length > 0)
+            ? this.state
+            : this.props.location
+
         return (
             <div className="search">
                 <AsyncSelect type="text"
                              cacheOptions
                              className="search__input"
                              placeholder="Add your address"
+                             value={currentValue}
                              loadOptions={this.loadOptions}
-                             onInputChange={this.onChange.bind(this)}
+                             onChange={this.onChange}
                              styles={{
                                  control: styles => ({
                                      ...styles,
@@ -57,15 +87,23 @@ class Search extends React.Component {
                              }}
                 />
 
-                <button className="search__button">Search</button>
+                <button className="search__button"
+                        onClick={this.onSearchClick}
+                >
+                    Search
+                </button>
             </div>
         )
     }
 
 }
 
-const mapDispatchToProps = dispatch => ({
-    setAddress: address => dispatch(setAddress(address))
+const mapStateToProps = state => ({
+    location: state.user.location
 })
 
-export default connect(null, mapDispatchToProps)(Search)
+const mapDispatchToProps = {
+    setAddress
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)
