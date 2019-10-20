@@ -18,7 +18,7 @@ const Title = styled.span`
     background: #fff;
 `
 
-const Input = styled.input`
+const Textarea = styled.textarea`
     width: 100%;
 
     border: 1px solid #7f7f7f;
@@ -31,16 +31,16 @@ const Input = styled.input`
     resize: none;
 `
 
-export default ({ title, type, name, value, defaultValue, onChange }) => {
+export default ({ title, type, name, value, onChange, cols, rows }) => {
     return (
         <Label>
             <Title>{title}</Title>
-            <Input type={type}
-                   name={name}
-                   placeholder={title}
-                   value={value}
-                   defaultValue={defaultValue}
-                   onChange={onChange}
+            <Textarea name={name}
+                      placeholder={title}
+                      value={value}
+                      onChange={onChange}
+                      cols={cols}
+                      rows={rows}
             />
         </Label>
     )
