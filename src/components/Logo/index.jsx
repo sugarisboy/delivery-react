@@ -1,5 +1,4 @@
 import React from 'react'
-import './style.css'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import img from './small-logo.png'
