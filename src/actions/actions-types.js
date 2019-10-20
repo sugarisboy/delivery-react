@@ -2,7 +2,8 @@ export const ADD_ITEM = 'ADD_ITEM'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
 
 export const USER_LOGIN_POPUP = 'USER_LOGIN_POPUP'
-
+export const ADD_TO_MENU = 'ADD_TO_MENU'
+export const REMOVE_FROM_MENU = 'REMOVE_FROM_MENU'
 export const SHADE = 'SHADE'
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'

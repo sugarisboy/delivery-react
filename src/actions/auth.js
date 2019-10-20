@@ -1,6 +1,7 @@
 import { LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, SET_USERNAME, SHADE } from './actions-types'
 import moment from 'moment'
 import { post } from '../service/api'
+import { addToMenu, removeFromMenu } from './application'
 
 let loginErrorTimeout
 
@@ -43,12 +44,34 @@ export function login(username, password) {
                 localStorage.setItem('token', access)
                 localStorage.setItem('key', key)
                 dispatch(successLogin())
-                dispatch(setUsername(response.data.username))
+                dispatch(setUsername(username))
+                await dispatch(updateMenu(true, username))
             } else {
                 dispatch(failLogin('Unknown Error'))
             }
         } catch (e) {
             dispatch(failLogin(e.response.data.message))
+        }
+    }
+}
+
+function updateMenu(isLoggedIn, username) {
+    return async dispatch => {
+        if (isLoggedIn) {
+            await dispatch(removeFromMenu('Login'))
+            await dispatch(addToMenu({
+                name: username,
+                link: '/profile'
+            }))
+            await dispatch(addToMenu({
+                name: 'Logout',
+                link: '/logout'
+            }))
+        } else {
+            await dispatch(addToMenu({
+                name: 'Login',
+                action: 'OPEN_LOGIN_POPUP'
+            }))
         }
     }
 }
@@ -73,8 +96,12 @@ export function checkAuth() {
             const now = moment()
             const expDate = moment(tokenData.exp * 1000)
 
+            const username = tokenData.sub
+
             if (expDate.isAfter(now)) {
                 dispatch(successLogin())
+                dispatch(setUsername(username))
+                await dispatch(updateMenu(true, username))
             } else {
                 dispatch(failLogin())
                 localStorage.removeItem('token')
@@ -109,5 +136,6 @@ export function logout() {
         dispatch({
             type: LOGOUT
         })
+        setUsername(null)
     }
 }

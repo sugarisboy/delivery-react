@@ -12,7 +12,9 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import './style.scss'
 import { connect } from 'react-redux'
 import { setItems } from '../actions/cart'
+import { checkAuth } from '../actions/auth'
 import CheckoutPage from './CheckoutPage'
+import ProfilePage from './ProfilePage'
 
 class App extends React.Component {
 
@@ -20,6 +22,7 @@ class App extends React.Component {
         super(props)
 
         this.loadCartFromLocalStorage()
+        this.props.checkAuth()
     }
 
     loadCartFromLocalStorage() {
@@ -44,6 +47,7 @@ class App extends React.Component {
                         <Route exact path="/" component={MainPage}/>
                         <Route path="/shop/:id" component={ShopPage}/>
                         <Route path="/checkout/:id" component={CheckoutPage}/>
+                        <Route path="/profile" component={ProfilePage}/>
                     </Switch>
                 </div>
                 <Shade>
@@ -55,8 +59,8 @@ class App extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    setItems: items => dispatch(setItems(items))
-})
+const mapDispatchToProps = {
+    setItems, checkAuth
+}
 
 export default connect(null, mapDispatchToProps)(App)

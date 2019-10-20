@@ -1,4 +1,4 @@
-import { SET_USERNAME, SHADE, USER_LOGIN_POPUP } from './actions-types'
+import { ADD_TO_MENU, SET_USERNAME, SHADE, USER_LOGIN_POPUP } from './actions-types'
 
 export function setShade(isShaded) {
     return dispatch => {
@@ -34,6 +34,25 @@ export function setUsername(username) {
         dispatch({
             type: SET_USERNAME,
             payload: username
+        })
+    }
+}
+
+export function addToMenu(item) {
+    return dispatch => {
+        dispatch({
+            type: ADD_TO_MENU,
+            payload: item
+        })
+    }
+}
+
+export function removeFromMenu(itemName) {
+    return dispatch => {
+        console.log('removing ' + itemName)
+        dispatch({
+            type: ADD_TO_MENU,
+            payload: itemName
         })
     }
 }

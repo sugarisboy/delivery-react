@@ -2,74 +2,35 @@ import React from 'react'
 import './style.scss'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { openLoginPopup } from '../../actions/application'
+import { addToMenu, openLoginPopup, removeFromMenu } from '../../actions/application'
 
 class Navigation extends React.Component {
 
-    constructor(props) {
-        super(props)
+    async update() {
+    }
 
-        this.state = {
-            items: [
-                {
-                    name: 'Delivery',
-                    link: '#'
-                },
-                {
-                    name: 'About us',
-                    link: '#'
-                },
-                {
-                    name: 'Login',
-                    onClick: this.onLoginClick
-                }
-            ]
+    componentDidMount() {
+        // this.update()
+    }
+
+    callAction = action => {
+        console.log(action)
+        if (!action) return
+
+        switch (action) {
+            case 'OPEN_LOGIN_POPUP':
+                this.props.openLoginPopup()
+                break
         }
-    }
-
-    componentDidUpdate(prevProps) {
-        const {isLoggedIn, username} = this.props
-
-        if (isLoggedIn !== prevProps.isLoggedIn) {
-            if (isLoggedIn) {
-                this.deleteItem('Login')
-            } else {
-                this.addItem({
-                    name: username,
-                    link: '/profile'
-                })
-            }
-        }
-    }
-
-    addItem(item) {
-        this.setState((state) => ({
-            items: state.items.slice().push(item)
-        }))
-    }
-
-    deleteItem(name) {
-        const itemIndex = this.state.items
-            .findIndex(item => item.name === name)
-
-        const newItems = this.state.items.slice(itemIndex, 1)
-        this.setState({
-            items: newItems
-        })
-    }
-
-
-    onLoginClick() {
-        this.props.openLoginPopup()
     }
 
     render() {
         return (
             <ul className="navigation">
-                {this.state.items.map((item, index) => (
+                {this.props.menu.map((item, index) => (
                     <li className="navigation__item" key={index}>
                         <Link to={item.link || '#'}
-                              onClick={item.onClick && item.onClick.bind(this)}
+                              onClick={() => this.callAction(item.action)}
                               className="navigation__link">
                             {item.name}
                         </Link>
@@ -82,11 +43,12 @@ class Navigation extends React.Component {
 
 const mapStateToProps = state => ({
     isLoggedIn: state.auth.isLoggedIn,
-    username: state.auth.username
+    username: state.auth.username,
+    menu: state.application.menu
 })
 
-const mapDispatchToProps = dispatch => ({
-    openLoginPopup: () => dispatch(openLoginPopup())
-})
+const mapDispatchToProps = {
+    openLoginPopup, addToMenu, removeFromMenu
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
