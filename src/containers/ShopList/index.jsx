@@ -2,8 +2,9 @@ import React from 'react'
 import Shop from '../Shop'
 import './style.css'
 import { post } from '../../service/api'
+import { connect } from 'react-redux'
 
-export default class ShopList extends React.Component {
+class ShopList extends React.Component {
 
     constructor(props) {
         super(props)
@@ -13,11 +14,28 @@ export default class ShopList extends React.Component {
         }
     }
 
-    async componentDidMount() {
-        let response = await post('/shop/page?page=0&size=30')
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const prevAddress = prevProps.address.label
+        const address = this.props.address.label
+
+        if (address !== prevAddress) {
+            this.updatePage()
+        }
+    }
+
+    async updatePage() {
+        console.log('update')
+
+        let response = await post('/shop/page?page=0&size=30', {
+            deliveryFor: this.props.address.label
+        })
         if (response.hasOwnProperty('data')) {
             this.setState({shops: response.data.shops})
         }
+    }
+
+    async componentDidMount() {
+        this.updatePage()
     }
 
     render() {
@@ -31,3 +49,9 @@ export default class ShopList extends React.Component {
     }
 
 }
+
+const mapStateToProps = state => ({
+    address: state.user.location
+})
+
+export default connect(mapStateToProps)(ShopList)
