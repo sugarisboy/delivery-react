@@ -14,6 +14,16 @@ function getAuthHeaders() {
     }
 }
 
+export function patch(endpoint, data, headers = {}) {
+    const config = {
+        headers: {
+            ...headers,
+            ...getAuthHeaders(),
+        },
+    }
+    return axios.patch(API_URL + endpoint, data, config)
+}
+
 export function post(endpoint, data = {}, headers = {}) {
     const config = {
         headers: {
