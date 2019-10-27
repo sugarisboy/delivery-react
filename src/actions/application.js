@@ -1,4 +1,4 @@
-import { ADD_TO_MENU, SHADE, USER_LOGIN_POPUP } from './actions-types'
+import { ADD_TO_MENU, REMOVE_FROM_MENU, SHADE, USER_LOGIN_POPUP } from './actions-types'
 
 export function setShade(isShaded) {
     return dispatch => {
@@ -41,7 +41,7 @@ export function addToMenu(item) {
 export function removeFromMenu(itemName) {
     return dispatch => {
         dispatch({
-            type: ADD_TO_MENU,
+            type: REMOVE_FROM_MENU,
             payload: itemName
         })
     }
