@@ -163,7 +163,7 @@ class CheckoutPage extends Component {
                         <div style={{
                             marginLeft: 'auto'
                         }}>
-                            <OrderForm/>
+                            <OrderForm shopId={shop.id}/>
                         </div>
                     </div>
                 )}
