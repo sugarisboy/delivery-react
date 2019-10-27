@@ -2,6 +2,7 @@ import React from 'react'
 import './style.scss'
 import { connect } from 'react-redux'
 import { addItem, removeItem } from '../../actions/cart'
+import { API_URL } from '../../service/api'
 
 class Item extends React.Component {
 
@@ -25,7 +26,11 @@ class Item extends React.Component {
 
         return (
             <div className="item">
-                <div className="item__image"/>
+                <div className="item__image" style={{
+                    background: `url(${API_URL}/img/product/${id}.jpg) #000`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                }}/>
                 <div className="item__info-block">
                     <div className="item__title">
                         {title}
