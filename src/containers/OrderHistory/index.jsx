@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import { post } from '../../service/api'
 import { connect } from 'react-redux'
 import OrderProduct from '../OrderProduct'
+import { getStatusText } from '../../utils'
 
 class OrderHistory extends Component {
 
@@ -33,14 +33,13 @@ class OrderHistory extends Component {
                 <ul>
                     {orders.map(order => {
                         const {products} = order
-                        const {status} = order.status[order.status.length - 1]
 
                         return (
                             <li key={order.id}>
                                 <p>Address: {order.address}</p>
                                 <p>Price: ${order.cost}</p>
-                                <p>Status: {status}</p>
-
+                                <p>Status: {getStatusText(order.status)}</p>
+                                <p>Date: {order.createdTime}</p>
                                 <ul>
                                     {products.map(product => (
                                         <li key={product.productId}>
