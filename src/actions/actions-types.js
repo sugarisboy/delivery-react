@@ -1,5 +1,6 @@
 export const ADD_ITEM = 'ADD_ITEM'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const REMOVE_SHOP = 'REMOVE_SHOP'
 export const SET_ITEMS = 'SET_ITEMS'
 
 export const USER_LOGIN_POPUP = 'USER_LOGIN_POPUP'

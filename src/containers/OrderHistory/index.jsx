@@ -38,7 +38,7 @@ class OrderHistory extends Component {
                             <li key={order.id}>
                                 <p>Address: {order.address}</p>
                                 <p>Price: ${order.cost}</p>
-                                <p>Status: {getStatusText(order.status)}</p>
+                                <p>Status: {getStatusText(order.localStatus)}</p>
                                 <p>Date: {order.createdTime}</p>
                                 <ul>
                                     {products.map(product => (

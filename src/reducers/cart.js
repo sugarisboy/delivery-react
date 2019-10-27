@@ -1,4 +1,4 @@
-import { ADD_ITEM, REMOVE_ITEM, SET_ITEMS } from '../actions/actions-types'
+import { ADD_ITEM, REMOVE_ITEM, REMOVE_SHOP, SET_ITEMS } from '../actions/actions-types'
 
 const initialState = {
 }
@@ -47,6 +47,18 @@ export default (state = initialState, action) => {
         cart[shopId].totalCount = newCount
       } else {
         cart[shopId][id] = undefined
+      }
+
+      return {
+        ...cart,
+      }
+    }
+    case REMOVE_SHOP: {
+      const cart = state
+      const shopId = payload
+
+      if (cart.hasOwnProperty(shopId)) {
+        cart[shopId] = undefined
       }
 
       return {

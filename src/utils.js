@@ -1,6 +1,4 @@
-export function getStatusText(allStatuses) {
-    const { status } = allStatuses[allStatuses.length - 1]
-
+export function getStatusText(status) {
     switch (status) {
         case 0:
             return 'Waiting for payment'
@@ -21,6 +19,6 @@ export function getStatusText(allStatuses) {
         case 15:
             return 'Canceled'
         default:
-            return status
+            return 'Processing'
     }
 }

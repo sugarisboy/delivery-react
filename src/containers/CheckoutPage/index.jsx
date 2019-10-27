@@ -40,18 +40,21 @@ class CheckoutPage extends Component {
 
         let totalPrice = 0
         const checkoutItems = []
-        for (let item in shopCart) {
-            if (shopCart.hasOwnProperty(item) && shopCart[item].hasOwnProperty('count')) {
-                const resp = await get(`/product/${item}`)
-                const productData = resp.data
-                const count = shopCart[item].count
 
-                totalPrice = +(totalPrice + productData.price * count).toFixed(2)
+        if (shopCart) {
+            for (let item in shopCart) {
+                if (shopCart.hasOwnProperty(item) && shopCart[item].hasOwnProperty('count')) {
+                    const resp = await get(`/product/${item}`)
+                    const productData = resp.data
+                    const count = shopCart[item].count
 
-                checkoutItems.push({
-                    ...productData,
-                    count
-                })
+                    totalPrice = +(totalPrice + productData.price * count).toFixed(2)
+
+                    checkoutItems.push({
+                        ...productData,
+                        count,
+                    })
+                }
             }
         }
 

@@ -4,6 +4,8 @@ import QwikTextarea from '../../components/QwikTextarea'
 import './style.scss'
 import { connect } from 'react-redux'
 import { get, post } from '../../service/api'
+import { removeShop } from '../../actions/cart'
+import { withRouter } from 'react-router-dom'
 
 class OrderForm extends React.Component {
 
@@ -64,18 +66,31 @@ class OrderForm extends React.Component {
     }
 
     onSubmit = async e => {
-        const {shopId, auth, cart} = this.props
+        const {
+            shopId, auth, cart, history, removeShop,
+        } = this.props
 
         e.preventDefault()
 
         const products = this.normalizeProducts(cart, shopId)
 
-        const resp = await post('/order/create', {
-            ...this.state.userData,
-            products,
-            shopId: shopId,
-            userId: auth.userData.id || undefined,
-        })
+        try {
+            const resp = await post('/order/create', {
+                ...this.state.userData,
+                products,
+                shopId,
+                userId: auth.userData.id || undefined,
+            })
+
+            if (resp.data.id) {
+                alert('Thanks!')
+                removeShop(shopId)
+                history.push('/profile')
+            }
+        } catch (e) {
+            console.log(e.response.data)
+            alert('Error occurred')
+        }
     }
 
     onChange = e => {
@@ -133,4 +148,8 @@ const mapStateToProps = state => ({
     cart: state.cart
 })
 
-export default connect(mapStateToProps)(OrderForm)
+const mapDispatchToProps = {
+    removeShop,
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OrderForm))
