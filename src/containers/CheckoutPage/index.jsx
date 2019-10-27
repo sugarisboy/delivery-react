@@ -48,7 +48,8 @@ class CheckoutPage extends Component {
                     const productData = resp.data
                     const count = shopCart[item].count
 
-                    totalPrice = +(totalPrice + productData.price * count).toFixed(2)
+                    const currentProductPrice = productData.price * count
+                    totalPrice += currentProductPrice
 
                     checkoutItems.push({
                         ...productData,
@@ -56,6 +57,8 @@ class CheckoutPage extends Component {
                     })
                 }
             }
+
+            totalPrice += shop.deliveryCost
         }
 
         this.setState({ shop, checkoutItems, totalPrice })
@@ -156,11 +159,14 @@ class CheckoutPage extends Component {
                                     </div>
                                 ))}
                             </div>
+                            <h3>
+                                Delivery: ${shop.deliveryCost}
+                            </h3>
                             <h2 style={{
                                 textAlign: 'right',
                                 margin: '40px 20px'
                             }}>
-                                TOTAL ${totalPrice}
+                                TOTAL ${totalPrice.toFixed(2)}
                             </h2>
                         </div>
                         <div style={{
