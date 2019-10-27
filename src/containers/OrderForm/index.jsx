@@ -69,7 +69,6 @@ class OrderForm extends React.Component {
         e.preventDefault()
 
         const products = this.normalizeProducts(cart, shopId)
-        console.log(products)
 
         const resp = await post('/order/create', {
             ...this.state.userData,
@@ -77,7 +76,6 @@ class OrderForm extends React.Component {
             shopId: shopId,
             userId: auth.userData.id || undefined,
         })
-        console.log(resp)
     }
 
     onChange = e => {

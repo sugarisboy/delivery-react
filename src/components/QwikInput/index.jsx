@@ -31,7 +31,9 @@ const Input = styled.input`
     resize: none;
 `
 
-export default ({ title, type, name, value, defaultValue, onChange }) => {
+export default ({
+    title, type, name, value, defaultValue, onChange, required
+}) => {
     return (
         <Label>
             <Title>{title}</Title>
@@ -41,6 +43,7 @@ export default ({ title, type, name, value, defaultValue, onChange }) => {
                    value={value}
                    defaultValue={defaultValue}
                    onChange={onChange}
+                   required={required}
             />
         </Label>
     )

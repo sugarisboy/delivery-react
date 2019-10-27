@@ -24,8 +24,6 @@ class ShopList extends React.Component {
     }
 
     async updatePage() {
-        console.log('update')
-
         let response = await post('/shop/page?page=0&size=30', {
             deliveryFor: this.props.address.label
         })
