@@ -4,6 +4,7 @@ import Navigation from '../Navigation'
 import CartButton from '../CartButton'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { CSS_MOBILE } from '../../utils'
 
 const HeaderStyled = styled.header`
     width: 100%;
@@ -13,7 +14,7 @@ const HeaderStyled = styled.header`
     margin-top: 22px;
     margin-bottom: 15px;
     
-    @media (max-width: 800px) {
+    @media (${CSS_MOBILE}) {
         flex-direction: column;
     }
 `

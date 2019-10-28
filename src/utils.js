@@ -22,3 +22,5 @@ export function getStatusText(status) {
             return 'Processing'
     }
 }
+
+export const CSS_MOBILE = `max-width: 800px`
