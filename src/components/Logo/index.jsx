@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import img from './small-logo.png'
 
@@ -24,7 +24,7 @@ const StyledLink = styled(Link)`
 export default class Logo extends React.PureComponent {
     render() {
         return (
-            <StyledLink to="/"/>
+            <StyledLink to="/" className={this.props.className}/>
         )
     }
 }
