@@ -3,6 +3,97 @@ import { connect } from 'react-redux'
 import { get } from '../../service/api'
 import OrderForm from '../OrderForm'
 import { addItem, removeItem } from '../../actions/cart'
+import styled from 'styled-components'
+import { CSS_MOBILE } from '../../utils'
+
+const ItemButton = styled.button`
+    appearance: none;
+    margin: 0 15px;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 29px;
+    border: none;
+    background: #f6f6f6;
+    color: #699ce4;
+    font-size: 32px;
+    user-select: none;
+`
+
+const ItemCount = styled.span`
+    font-size: 18px;
+`
+
+const CheckoutBlock = styled.div`
+    margin: 50px 0;
+    display: flex;
+    flex-direction: row;
+    
+    @media (${CSS_MOBILE}) {
+        flex-direction: column;
+    }
+`
+
+const CheckoutItem = styled.div`
+    display: flex;
+    padding: 40px 20px;
+    
+    @media (${CSS_MOBILE}) {
+        flex-direction: column;
+    }
+`
+
+const CheckoutList = styled.div`
+    flex: 1 0 auto;
+`
+
+const ItemTitle = styled.p`
+    font-size: 16px;
+    margin-bottom: 7px;
+`
+
+const ItemDescription = styled.span`
+    color: grey;
+`
+
+const ItemData = styled.div`
+    margin-left: auto;
+    display: flex;
+    
+    @media (${CSS_MOBILE}) {
+        flex-direction: column;
+    }
+`
+
+const Count = styled.div`
+    margin: 0 50px;
+    display: flex;
+    align-items: center;
+`
+
+const Total = styled.h2`
+    text-align: right;
+    margin: 40px 20px;
+`
+
+const AdditionalBlock = styled.div`
+    margin-left: auto;
+`
+const Prices = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100px;
+`
+
+const OnePrice = styled.span`
+    font-size: 18px;
+    color: grey;
+`
+
+const TotalItemPrice = styled.span`
+    font-size: 24px;
+`
 
 class CheckoutPage extends Component {
 
@@ -13,20 +104,6 @@ class CheckoutPage extends Component {
             shop: null,
             checkoutItems: [],
             totalPrice: 0
-        }
-
-        this.button = {
-            appearance: 'none',
-            margin: '0 15px',
-            padding: 0,
-            width: 40,
-            height: 40,
-            borderRadius: 29,
-            border: 'none',
-            background: '#f6f6f6',
-            color: '#699ce4',
-            fontSize: 32,
-            userSelect: 'none'
         }
     }
 
@@ -81,80 +158,45 @@ class CheckoutPage extends Component {
         const { addItem, removeItem } = this.props
 
         return (
-            <>
+            <div>
                 {shop && (
-                    <div style={{
-                        margin: '50px 0',
-                        display: 'flex',
-                        flexDirection: 'row'
-                    }}>
-                        <div style={{
-                            flex: '1 0 auto'
-                        }}>
-                            <h1>
-                                Checkout {shop.name}
-                            </h1>
+                    <CheckoutBlock>
+                        <CheckoutList>
+                            <h1>Checkout {shop.name}</h1>
                             <div>
                                 {checkoutItems.map(item => (
                                     <div key={item.id}>
-                                        <div style={{
-                                            display: 'flex',
-                                            padding: '40px 20px'
-                                        }}>
+                                        <CheckoutItem>
                                             <div>
-                                                <p style={{
-                                                    fontSize: 16,
-                                                    marginBottom: 7
-                                                }}>
+                                                <ItemTitle>
                                                     {item.title}
-                                                </p>
-                                                <small style={{
-                                                    color: 'grey'
-                                                }}>
+                                                </ItemTitle>
+                                                <ItemDescription>
                                                     Description {item.description}
-                                                </small>
+                                                </ItemDescription>
                                             </div>
-                                            <div style={{
-                                                marginLeft: 'auto',
-                                                display: 'flex',
-                                            }}>
-                                                <div style={{
-                                                    margin: '0 50px',
-                                                    display: 'flex',
-                                                    alignItems: 'center'
-                                                }}>
-                                                    <button style={this.button}
-                                                            onClick={() => removeItem(shop.id, item.id)}>
+                                            <ItemData>
+                                                <Count>
+                                                    <ItemButton onClick={() => removeItem(shop.id, item.id)}>
                                                         -
-                                                    </button>
-                                                    <span style={{ fontSize: 18 }}>
+                                                    </ItemButton>
+                                                    <ItemCount>
                                                         {item.count}
-                                                    </span>
-                                                    <button style={this.button}
-                                                            onClick={() => addItem(shop.id, item.id)}>
+                                                    </ItemCount>
+                                                    <ItemButton onClick={() => addItem(shop.id, item.id)}>
                                                         +
-                                                    </button>
-                                                </div>
-                                                <div style={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    alignItems: 'flex-end',
-                                                    width: 100
-                                                }}>
-                                                    <span style={{
-                                                        fontSize: 18,
-                                                        color: 'grey',
-                                                    }}>
+                                                    </ItemButton>
+                                                </Count>
+                                                <Prices>
+                                                    <OnePrice>
                                                         ${item.price}
-                                                    </span>
-                                                        <span style={{
-                                                            fontSize: 24,
-                                                        }}>
+                                                    </OnePrice>
+                                                    <TotalItemPrice>
                                                         ${(item.count * item.price).toFixed(2)}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                    </TotalItemPrice>
+                                                </Prices>
+                                            </ItemData>
+                                        </CheckoutItem>
                                         <hr/>
                                     </div>
                                 ))}
@@ -162,21 +204,16 @@ class CheckoutPage extends Component {
                             <h3>
                                 Delivery: ${shop.deliveryCost}
                             </h3>
-                            <h2 style={{
-                                textAlign: 'right',
-                                margin: '40px 20px'
-                            }}>
+                            <Total>
                                 TOTAL ${totalPrice.toFixed(2)}
-                            </h2>
-                        </div>
-                        <div style={{
-                            marginLeft: 'auto'
-                        }}>
+                            </Total>
+                        </CheckoutList>
+                        <AdditionalBlock>
                             <OrderForm shopId={shop.id}/>
-                        </div>
-                    </div>
+                        </AdditionalBlock>
+                    </CheckoutBlock>
                 )}
-            </>
+            </div>
         )
 
     }

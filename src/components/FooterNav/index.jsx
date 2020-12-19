@@ -1,6 +1,55 @@
 import React from 'react'
-import './style.css'
-import {Link} from "react-router-dom"
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { CSS_MOBILE } from '../../utils'
+
+const Nav = styled.nav`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex: 2 0 auto;
+    margin: 0 auto;
+    
+    @media (${CSS_MOBILE}) {
+        margin: 0;
+        flex-direction: column;
+    }
+`
+
+const Submenu = styled.ul`
+    display: flex;
+    flex-direction: column;
+    margin: 0 60px;
+    
+    @media (${CSS_MOBILE}) {
+        margin: 30px 0;
+    }
+`
+
+const NavItem = styled.li`
+    font-size: 13px;
+    color: #5e5e5e;
+    margin: 7px 0;
+    
+    @media (${CSS_MOBILE}) {
+        font-size: 1em;
+    }
+`
+
+const NavItemHead = styled(NavItem)`
+    font-weight: bold;
+    color: #393939;
+    margin: 0 0 7px 0;
+`
+
+const NavLink = styled(Link)`
+    color: #5e5e5e;
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+`
 
 export default class FooterNav extends React.PureComponent {
 
@@ -43,31 +92,27 @@ export default class FooterNav extends React.PureComponent {
 
     render() {
         return (
-            <nav className="footer-nav">
-                {
-                    this.state.items.map(menuObject => {
-                        const header = Object.keys(menuObject)[0]
-                        const subItems = menuObject[header]
+            <Nav>
+                {this.state.items.map(menuObject => {
+                    const header = Object.keys(menuObject)[0]
+                    const subItems = menuObject[header]
 
-                        return (
-                            <ul key={header} className="footer-nav__submenu">
-                                <li className="footer-nav__item footer-nav__item_head">
-                                    {header}
-                                </li>
+                    return (
+                        <Submenu key={header}>
+                            <NavItemHead>
+                                {header}
+                            </NavItemHead>
 
-                                {
-                                    subItems.map(subItem => (
-                                    <li key={subItem} className="footer-nav__item">
-                                        <Link to="#" className="footer-nav__link">
-                                            {subItem}
-                                        </Link>
-                                    </li>
-                                    ))
-                                }
-                            </ul>)
-                        })
-                }
-            </nav>
+                            {subItems.map(subItem => (
+                                <NavItem key={subItem}>
+                                    <NavLink to="#">
+                                        {subItem}
+                                    </NavLink>
+                                </NavItem>
+                            ))}
+                        </Submenu>)
+                })}
+            </Nav>
         )
     }
 

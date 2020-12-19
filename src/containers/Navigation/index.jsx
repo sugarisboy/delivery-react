@@ -1,18 +1,38 @@
 import React from 'react'
-import './style.scss'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addToMenu, openLoginPopup, removeFromMenu } from '../../actions/application'
+import { openLoginPopup } from '../../actions/application'
 import { logout } from '../../actions/auth'
+import styled from 'styled-components'
+import { CSS_MOBILE } from '../../utils'
+
+const NavList = styled.ul`
+    display: flex;
+    margin: 0 auto;
+    
+    @media (${CSS_MOBILE}) {
+        flex-direction: column;
+        align-items: center;
+        margin: 15px auto;
+    }
+`
+
+const NavItem = styled.li`
+    margin: 0 16px;
+    
+    @media (${CSS_MOBILE}) {
+        margin: 10px;
+    }
+`
+
+const NavLink = styled(Link)`
+    color: #393939;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+`
 
 class Navigation extends React.Component {
-
-    async update() {
-    }
-
-    componentDidMount() {
-        // this.update()
-    }
 
     callAction = action => {
         if (!action) return
@@ -29,17 +49,17 @@ class Navigation extends React.Component {
 
     render() {
         return (
-            <ul className="navigation">
+            <NavList>
                 {this.props.menu.map((item, index) => (
-                    <li className="navigation__item" key={index}>
-                        <Link to={item.link || '#'}
+                    <NavItem key={index}>
+                        <NavLink to={item.link || '#'}
                               onClick={() => this.callAction(item.action)}
                               className="navigation__link">
                             {item.name}
-                        </Link>
-                    </li>
+                        </NavLink>
+                    </NavItem>
                 ))}
-            </ul>
+            </NavList>
         )
     }
 }
@@ -51,7 +71,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    openLoginPopup, addToMenu, removeFromMenu, logout
+    openLoginPopup, logout,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
